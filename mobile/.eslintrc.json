@@ -1,0 +1,70 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "16.13.1"
+    }
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "global-require": "off",
+    "import/order": "off",
+    "react/no-array-index-key": "off",
+    "import/no-unresolved": "off",
+    "react/jsx-key": "off",
+    "react/jsx-boolean-value": "off",
+    "react/jsx-closing-tag-location": "off",
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
+    "react/display-name": "off",
+    "no-tabs": ["error", { "allowIndentationTabs": true }],
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1,
+        "offsetTernaryExpressions": true
+      }
+    ],
+    "comma-dangle": "off",
+    "jsx-quotes": ["error", "prefer-double"],
+    "react/jsx-indent-props": ["error", 2],
+    "react/prop-types": ["error", { "skipUndeclared": true }],
+    "react/jsx-indent": ["error", 2],
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "semi": ["error", "always"],
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": true,
+        "varsIgnorePattern": "^_",
+        "argsIgnorePattern": "^_"
+      }
+    ]
+  },
+  "overrides": []
+}
