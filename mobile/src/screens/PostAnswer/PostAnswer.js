@@ -46,3 +46,40 @@ const PostAnswerScreen = ({ navigation, route }) => {
           />
         </Card>
       </View>
+	<View style={styles.button}>
+        <TouchableOpacity
+          style={{ backgroundColor: Colors.red30, borderRadius: 20, width: 85 }}
+          activeOpacity={0.7}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Text style={styles.submitText}>Back</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: Colors.blue40,
+            borderRadius: 20,
+            leftMargin: 20,
+          }}
+          activeOpacity={0.7}
+          onPress={async() => {
+            if (content != null && content != "") {
+              if (route.params?.update) {
+                await controllUpdateQuestion(route.params?.aid, content);
+                navigation.goBack();
+              } else {
+                await controllPostAnswer(content, route.params?.qid);
+                navigation.goBack();
+              }
+            }
+          }}
+        >
+          <Text style={styles.submitText}>Answer</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+};
+
+export default PostAnswerScreen;
