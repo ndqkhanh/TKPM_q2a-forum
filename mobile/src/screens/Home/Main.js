@@ -48,4 +48,132 @@ const ScreensHomeMain = ({ navigation, route }) => {
         setPage((page) => page + 1);
         setRefetch(false);
     };
+    return (
+        <SafeAreaView
+            style={{
+                flex: 1,
+                backgroundColor: Colors.white,
+            }}
+        >
+            <View style={styles.headerContainer}>
+                <Text style={styles.header}>
+                    {configData.find((item) => item.slug === "FORUM_NAME")?.value || ""}
+                </Text>
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={async () => {
+                        await AsyncStorage.clear();
+
+                        setAuth(false);
+                    }}
+                >
+                    <Icon
+                        name="log-out-outline"
+                        style={{
+                            fontSize: 30,
+                            color: Colors.cyan10,
+                        }}
+                    />
+                </TouchableOpacity>
+            </View>
+            <ScrollView
+                style={styles.body}
+                onScroll={({ nativeEvent }) => {
+                    if (
+                        !refetch &&
+                        isCloseToBottom(nativeEvent) &&
+                        feedData.length < maxLength
+                    ) {
+                        console.log("scrolled to bottom of feed");
+                        setRefetch(true);
+                        fetchFeedInformation(page);
+                    }
+                }}
+                contentContainerStyle={{
+                    paddingBottom: 100,
+                }}
+                scrollEventThrottle={400}
+                showsVerticalScrollIndicator={false}
+            >
+                <View
+                    style={{
+                        flexDirection: "row",
+                        marginVertical: 5,
+                    }}
+                >
+                    <TouchableHighlight
+                        style={{
+                            flex: 1,
+                            flexDirection: "row",
+                            alignItems: "center",
+                            backgroundColor: Colors.white,
+                            borderRadius: 5,
+                            padding: 5,
+                            marginRight: userData.role === 2 ? 0 : 10,
+                            justifyContent: "center",
+                        }}
+                        onPress={() => navigation.navigate("Profile")}
+                        underlayColor={Colors.cyan50}
+                    >
+                        <>
+                            <Icon
+                                name="person-outline"
+                                style={{
+                                    fontSize: 30,
+                                    color: Colors.cyan20,
+                                }}
+                            />
+                            <Text
+                                style={{
+                                    marginLeft: 5,
+                                    fontSize: 18,
+                                    fontWeight: "bold",
+                                    color: Colors.cyan20,
+                                }}
+                            >
+                                Profile
+                            </Text>
+                        </>
+                    </TouchableHighlight>
+                    {(userData.role == 1 || userData.role == 0) && (
+                        <TouchableHighlight
+                            style={{
+                                flex: 1,
+                                flexDirection: "row",
+                                alignItems: "center",
+                                backgroundColor: Colors.white,
+                                borderRadius: 5,
+                                padding: 5,
+                                marginLeft: 10,
+                                justifyContent: "center",
+                            }}
+                            onPress={() => navigation.navigate("Admin")}
+                            underlayColor={Colors.cyan50}
+                        >
+                            <>
+                                <Icon
+                                    name="flame-outline"
+                                    style={{
+                                        fontSize: 30,
+                                        color: Colors.cyan20,
+                                    }}
+                                />
+                                <Text
+                                    style={{
+                                        marginLeft: 5,
+                                        fontSize: 18,
+                                        fontWeight: "bold",
+                                        color: Colors.cyan20,
+                                    }}
+                                >
+                                    Admin
+                                </Text>
+                            </>
+                        </TouchableHighlight>
+                    )}
+                </View>
+                
+            </ScrollView>
+        </SafeAreaView>
+    );
 }
