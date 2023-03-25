@@ -9,6 +9,14 @@ const login = catchAsync(async (req, res) => {
   res.send({ tokens });
 });
 
+const register = catchAsync(async (req, res) => {
+  const user = await userService.createUser(req.body);
+  const tokens = await tokenService.generateAuthTokens(user);
+  delete user.password;
+  res.status(httpStatus.CREATED).send({ user, tokens });
+});
+
 module.exports = {
   login,
+  register,
 };
