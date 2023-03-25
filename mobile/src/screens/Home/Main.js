@@ -172,7 +172,40 @@ const ScreensHomeMain = ({ navigation, route }) => {
                         </TouchableHighlight>
                     )}
                 </View>
-                
+                <HomeMainPosting
+                    onPress={() => navigation.navigate("Editor")}
+                    content={route.params?.Content}
+                    onPressPost={() => {
+                        controllPostQuestion(route.params?.Title, route.params?.Content);
+                        navigation.setParams({ Title: null, Content: null });
+                    }}
+                />
+                {feedData.map((record, index) => (
+                    <Post
+                        key={index}
+                        dateText={formatDistance(new Date(record.updated_at), Date.now(), {
+                            addSuffix: true,
+                        })}
+                        title={record.title}
+                        content={record.content}
+                        numOfAnswers={record.numOfAnswers}
+                        userData={{
+                            name: record.userData.name,
+                            avatarUrl: record.userData.profilepictureurl,
+                        }}
+                        correctAnswer={record.correctAnswerExists}
+                        onPressQ2A={() => {
+                            console.log("navigate to Q2A");
+                            navigation.navigate("Q2A", { questionId: record.id });
+                        }}
+                        onPressAnswer={() => {
+                            navigation.navigate("Post answer", { qid: record.id });
+                        }}
+                        goProfile={() => {
+                            navigation.navigate("Profile", { uid: record.uid })
+                        }}
+                    />
+                ))}
             </ScrollView>
         </SafeAreaView>
     );
