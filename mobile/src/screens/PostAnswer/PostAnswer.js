@@ -19,3 +19,30 @@ import {
   controllUpdateQuestion,
 } from "~controller/controllAnswer";
 
+const PostAnswerScreen = ({ navigation, route }) => {
+  const initContent = route?.params?.Content?.split("&lt;").join("<") || "";
+  const richText = React.useRef();
+  const [content, setContent] = React.useState(initContent);
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.header}>Your answer</Text>
+      </View>
+      <View style={styles.body}>
+        <Text style={styles.textTitle}>Content</Text>
+        <RichToolbar
+          editor={richText}
+          actions={[actions.setBold, actions.setItalic, actions.setUnderline]}
+        />
+        <Card style={styles.typingContent}>
+          <RichEditor
+            useContainer={false}
+            ref={richText}
+            initialContentHTML={initContent}
+            onChange={(descriptionText) => {
+              setContent(descriptionText);
+              //console.log("descriptionText:", descriptionText);
+            }}
+          />
+        </Card>
+      </View>
