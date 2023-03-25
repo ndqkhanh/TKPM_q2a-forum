@@ -48,6 +48,20 @@ const ScreensHomeMain = ({ navigation, route }) => {
         setPage((page) => page + 1);
         setRefetch(false);
     };
+    React.useEffect(() => {
+        const unsubscribe = navigation.addListener("focus", () => {
+            setPage(0);
+            setRefetch(false);
+            setFeedData([]);
+            setMaxLength(0);
+
+            setRefetch(false);
+            fetchFeedInformation(0);
+            // The screen is focused
+            // Call any action
+        });
+
+    }, [navigation]);
     return (
         <SafeAreaView
             style={{
