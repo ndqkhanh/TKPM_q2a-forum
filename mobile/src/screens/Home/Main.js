@@ -61,6 +61,16 @@ const ScreensHomeMain = ({ navigation, route }) => {
             // Call any action
         });
 
+        // Return the function to unsubscribe from the event so it gets removed on unmount
+        return () => {
+            unsubscribe();
+            setPage(0);
+            setRefetch(false);
+            setFeedData([]);
+            setMaxLength(0);
+
+            setRefetch(false);
+        };
     }, [navigation]);
     return (
         <SafeAreaView
