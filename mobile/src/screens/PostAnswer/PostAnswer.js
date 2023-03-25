@@ -83,3 +83,61 @@ const PostAnswerScreen = ({ navigation, route }) => {
 };
 
 export default PostAnswerScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginBottom: 120,
+  },
+  body: {
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  headerContainer: {
+    height: 50,
+    backgroundColor: Colors.white,
+    //justifyContent: "center",
+    //marginHorizontal: 20,
+    padding: 10,
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  body: {
+    margin: 10,
+    marginTop: 30,
+  },
+  textTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: Colors.black,
+    marginTop: 10,
+  },
+  typingTitle: {
+    marginLeft: 10,
+    marginTop: 10,
+    width: "95%",
+  },
+  typingContent: {
+    marginLeft: 10,
+    marginTop: 10,
+    width: "95%",
+    height: "70%",
+  },
+  button: {
+    justifyContent: "flex-end",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
+  submitText: {
+    fontSize: 20,
+    margin: 7,
+    color: "white",
+    fontWeight: "bold",
+    alignSelf: "center",
+  },
+});
