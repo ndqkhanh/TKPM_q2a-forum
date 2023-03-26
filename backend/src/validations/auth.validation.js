@@ -34,11 +34,19 @@ const forgotPassword = {
     email: Joi.string().email().required(),
   }),
 };
-
+const resetPassword = {
+  query: Joi.object().keys({
+    token: Joi.string().required(),
+  }),
+  body: Joi.object().keys({
+    password: Joi.string().required().custom(password),
+  }),
+};
 module.exports = {
   login,
   register,
   logout,
   refreshTokens,
   forgotPassword,
+  resetPassword,
 };
