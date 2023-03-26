@@ -469,3 +469,82 @@ const ManageForumScreen = ({ navigation }) => {
 };
 
 export default ManageForumScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    //   marginLeft: 10,
+    //   marginRight: 10
+  },
+  body: {
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  headerContainer: {
+    height: 50,
+    backgroundColor: Colors.white,
+    // justifyContent: "center",
+    //marginHorizontal: 20,
+    padding: 10,
+    alignItems: "center",
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  infoSection: {
+    margin: 10,
+    flexDirection: "row",
+  },
+  title: {
+    color: "black",
+    fontSize: 30,
+    fontWeight: "bold",
+    marginTop: 10,
+  },
+  QA_card: {
+    height: 80,
+    width: "30%",
+    padding: 5,
+    marginLeft: 10,
+  },
+  menu: {
+    borderRadius: 0,
+    paddingLeft: 20,
+    paddingRight: 30,
+    marginRight: 2,
+  },
+  config: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: Colors.grey50,
+    marginHorizontal: 10,
+    marginBottom: 20,
+    padding: 10,
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  configText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "black",
+  },
+  inputCard: {
+    marginLeft: 10,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  inputText: {
+    height: 40,
+    padding: 4,
+    fontSize: 17,
+    width: "100%",
+    borderRadius: 10,
+    backgroundColor: Colors.grey60,
+  },
+});
