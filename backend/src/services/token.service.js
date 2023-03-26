@@ -115,7 +115,6 @@ const generateVerifyEmailToken = async (user) => {
 
 module.exports = {
   generateToken,
-  // saveToken,
   verifyToken,
   generateAuthTokens,
   generateResetPasswordToken,

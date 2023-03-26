@@ -33,6 +33,26 @@ const createUser = async (userBody) => {
   return user;
 };
 
+const getUserById = async (id) => {
+  const user = await prisma.users.findUnique({
+    where: {
+      id,
+    },
+  });
+  user.numOfQuestions = await prisma.questions.count({
+    where: {
+      uid: id,
+    },
+  });
+  user.numOfAnswers = await prisma.answers.count({
+    where: {
+      uid: id,
+    },
+  });
+  return user;
+};
+
 module.exports = {
   createUser,
+  getUserById,
 };

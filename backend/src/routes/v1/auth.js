@@ -8,5 +8,6 @@ const router = express.Router();
 router.post('/signin', validate(authValidation.login), authController.login);
 router.post('/signup', validate(authValidation.register), authController.register);
 router.post('/logout', validate(authValidation.logout), authController.logout);
+router.post('/refresh-tokens', validate(authValidation.refreshTokens), authController.refreshTokens);
 
 module.exports = router;
