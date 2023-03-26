@@ -1,6 +1,5 @@
 const httpStatus = require('http-status');
 const bcrypt = require('bcrypt');
-const tokenService = require('./token.service');
 const userService = require('./user.service');
 const Token = require('../models/token.model');
 const ApiError = require('../utils/ApiError');
@@ -26,6 +25,20 @@ const loginUserWithUsernameAndPassword = async (username, password) => {
   return user;
 };
 
+/**
+ * Logout
+ * @param {string} refreshToken
+ * @returns {Promise}
+ */
+const logout = async (refreshToken) => {
+  const refreshTokenDoc = await Token.findOne({ token: refreshToken, type: tokenTypes.REFRESH, blacklisted: false });
+  if (!refreshTokenDoc) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Not found');
+  }
+  await refreshTokenDoc.remove();
+};
+
 module.exports = {
   loginUserWithUsernameAndPassword,
+  logout,
 };
