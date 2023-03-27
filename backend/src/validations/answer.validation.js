@@ -7,6 +7,16 @@ const newAnswer = {
   }),
 };
 
+const pickCorrectAnswer = {
+  params: Joi.object().keys({
+    answerId: Joi.string().uuid().required(),
+  }),
+  body: Joi.object().keys({
+    correct: Joi.boolean().required(),
+  }),
+};
+
 module.exports = {
   newAnswer,
+  pickCorrectAnswer,
 };
