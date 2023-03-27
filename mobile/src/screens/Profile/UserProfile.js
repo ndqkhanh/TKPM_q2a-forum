@@ -128,4 +128,63 @@ const ProfileScreen = ({ navigation, route }) => {
   let role;
   if (anotherUserData.name) role = anotherUserData.role;
   else role = userData.role;
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <TouchableOpacity onPress={() => navigation.pop()}>
+          <Icon
+            name="arrow-back-outline"
+            style={{
+              fontSize: 30,
+              color: Colors.cyan10,
+            }}
+          />
+        </TouchableOpacity>
+        <Text style={styles.header}>Profile</Text>
+      </View>
+      <View style={styles.body}>
+        <View style={styles.infoSection}>
+          <Avatar
+            rounded
+            source={{
+              uri: anotherUserData.profilepictureurl
+                ? anotherUserData.profilepictureurl
+                : userData.profilepictureurl,
+            }}
+            size={70}
+          />
+          <View marginLeft={10}>
+            <Text style={styles.title}>
+              {anotherUserData.username
+                ? anotherUserData.username
+                : userData.username}
+            </Text>
+            <Text>
+              <Icon size={10} name="ellipse" color="blue" />
+              {role == 0 ? "Admin" : role == 1 ? "Moderator" : "User"}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.infoSection}>
+          <Card style={styles.QA_card}>
+            <Text text10 center black>
+              {anotherUserData.numOfQuestions
+                ? anotherUserData.numOfQuestions
+                : userData.numOfQuestions}
+            </Text>
+            <Text text60 center black>
+              Questions
+            </Text>
+          </Card>
+          <Card style={styles.QA_card}>
+            <Text text10 center black>
+              {anotherUserData.numOfAnswers
+                ? anotherUserData.numOfAnswers
+                : userData.numOfAnswers}
+            </Text>
+            <Text text60 center black>
+              Answers
+            </Text>
+          </Card>
+        </View>
   
