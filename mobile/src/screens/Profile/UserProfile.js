@@ -75,4 +75,43 @@ const ProfileScreen = ({ navigation, route }) => {
     setPage((page) => page + 1);
     setRefetch(false);
   };
+  const saveInformation = async () => {
+    if (is_empty(pendingData.name)) {
+      Alert.alert("Account name can't be empty");
+      return;
+    }
+    if (is_empty(pendingData.profilepictureurl)) {
+      Alert.alert("Profile picture url can't be empty");
+      return;
+    }
+    if (!is_URL(pendingData.profilepictureurl)) {
+      Alert.alert("Profile picture must be an url");
+      return;
+    }
+    let token = await AsyncStorage.getItem("UserToken");
+    let data = await updateUserInformation(token, {
+      name: pendingData.name,
+      profilepictureurl: pendingData.profilepictureurl,
+    });
+    if (data.username) {
+      Alert.alert("Update account successfully.");
+    } else {
+      Alert.alert("Update account failure.");
+    }
+
+    fetchUserInformation();
+  };
+  useEffect(() => {
+    fetchUserProfile(userId);
+  }, []);
+  useEffect(() => {
+    fetchMyQuestions(0, 5);
+    // Reload
+    return () => {
+      setPage(0);
+      setRefetch(false);
+      setMyQuestionsData([]);
+      setMaxLength(0);
+    };
+  }, []);
   
