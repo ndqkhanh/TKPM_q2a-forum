@@ -114,4 +114,18 @@ const ProfileScreen = ({ navigation, route }) => {
       setMaxLength(0);
     };
   }, []);
+  //console.log("--AnotherUser: ", anotherUserData)
+  const [tab, setTab] = useState("Personal info");
+  const personalInfoTab = () => {
+    setTab("Personal info");
+  };
+  const myQuestionsTab = () => {
+    setTab("My questions");
+  };
+  const editProfile = () => {
+    setTab("Edit Profile");
+  };
+  let role;
+  if (anotherUserData.name) role = anotherUserData.role;
+  else role = userData.role;
   
