@@ -300,3 +300,109 @@ const ProfileScreen = ({ navigation, route }) => {
               ))}
             </ScrollView>
           </View>
+        ) : (
+          tab == "Edit Profile" && (
+            <View
+              style={{
+                backgroundColor: Colors.white,
+                padding: 10,
+                borderRadius: 5,
+                margin: 10,
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontWeight: "500",
+                    fontSize: 16,
+                  }}
+                >
+                  Full Name:
+                </Text>
+                <TextInput
+                  value={pendingData.name}
+                  onChangeText={(value) => {
+                    pendingData.name = value;
+                    setPendingData({ ...pendingData });
+                  }}
+                  style={{
+                    flex: 1,
+                    height: 40,
+                    marginLeft: 5,
+                    borderRadius: 5,
+                    backgroundColor: Colors.cyan80,
+                    paddingHorizontal: 5,
+                    fontSize: 16,
+                  }}
+                />
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginTop: 20,
+                }}
+              >
+                <Text
+                  style={{
+                    fontWeight: "500",
+                    fontSize: 16,
+                  }}
+                >
+                  Profile Picturl URL:
+                </Text>
+                <TextInput
+                  value={pendingData.profilepictureurl}
+                  onChangeText={(value) => {
+                    pendingData.profilepictureurl = value;
+                    setPendingData({ ...pendingData });
+                  }}
+                  style={{
+                    flex: 1,
+                    height: 40,
+                    marginLeft: 5,
+                    borderRadius: 5,
+                    backgroundColor: Colors.cyan80,
+                    paddingHorizontal: 5,
+                    fontSize: 16,
+                  }}
+                />
+              </View>
+
+              <TouchableOpacity
+                style={{
+                  alignSelf: "center",
+                  width: 100,
+                  height: 35,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: Colors.red30,
+                  borderRadius: 5,
+                  marginTop: 15,
+                }}
+                onPress={saveInformation}
+              >
+                <Text
+                  style={{
+                    color: Colors.white,
+                    fontWeight: "bold",
+                    fontSize: 16,
+                  }}
+                >
+                  Save
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )
+        )}
+      </View>
+    </SafeAreaView>
+  );
+};
+
+export default ProfileScreen;
