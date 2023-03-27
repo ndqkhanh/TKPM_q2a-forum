@@ -7,6 +7,13 @@ const newAnswer = catchAsync(async (req, res) => {
   res.send(answer);
 });
 
+const pickCorrectAnswer = catchAsync(async (req, res) => {
+  const answer = await answerService.pickCorrectAnswerById(req);
+  res.send({ success: !!answer });
+});
+
+
 module.exports = {
   newAnswer,
+  pickCorrectAnswer,
 };
