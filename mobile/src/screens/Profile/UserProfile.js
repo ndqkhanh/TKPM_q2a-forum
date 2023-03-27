@@ -188,3 +188,115 @@ const ProfileScreen = ({ navigation, route }) => {
           </Card>
         </View>
   
+        <View style={styles.infoSection}>
+          <TouchableOpacity style={{ flex: 1 }} onPress={personalInfoTab}>
+            <Card
+              style={styles.menu}
+              {...(tab == "Personal info"
+                ? { backgroundColor: Colors.blue60 }
+                : {})}
+            >
+              <Text
+                black
+                style={{
+                  textAlign: "center",
+                  fontSize: 15,
+                }}
+              >
+                Personal info
+              </Text>
+            </Card>
+          </TouchableOpacity>
+          {anotherUserData.name ? null : (
+            <TouchableOpacity style={{ flex: 1 }} onPress={myQuestionsTab}>
+              <Card
+                style={styles.menu}
+                {...(tab == "My questions"
+                  ? { backgroundColor: Colors.blue60 }
+                  : {})}
+              >
+                <Text
+                  black
+                  style={{
+                    textAlign: "center",
+                    fontSize: 15,
+                  }}
+                >
+                  My questions
+                </Text>
+              </Card>
+            </TouchableOpacity>
+          )}
+          {anotherUserData.name ? null : (
+            <TouchableOpacity style={{ flex: 1 }} onPress={editProfile}>
+              <Card
+                style={styles.menu}
+                {...(tab == "Edit Profile"
+                  ? { backgroundColor: Colors.blue60 }
+                  : {})}
+              >
+                <Text
+                  black
+                  style={{
+                    textAlign: "center",
+                    fontSize: 15,
+                  }}
+                >
+                  Edit Profile
+                </Text>
+              </Card>
+            </TouchableOpacity>
+          )}
+        </View>
+        {tab == "Personal info" ? (
+          <View
+            style={{
+              margin: 10,
+            }}
+          >
+            <PersonalInfo
+              userData={anotherUserData.name ? anotherUserData : userData}
+            />
+          </View>
+        ) : tab == "My questions" ? (
+          <View
+            style={{
+              margin: 10,
+            }}
+          >
+            <ScrollView
+              onScroll={({ nativeEvent }) => {
+                if (
+                  !refetch &&
+                  isCloseToBottom(nativeEvent) &&
+                  myQuestionsData.length < maxLength
+                ) {
+                  console.log("scrolled to bottom of the list");
+                  setRefetch(true);
+                  fetchMyQuestions(page, limit);
+                }
+              }}
+              contentContainerStyle={{
+                paddingBottom: 100,
+              }}
+              scrollEventThrottle={400}
+              showsVerticalScrollIndicator={false}
+            >
+              {myQuestionsData.map((record, index) => (
+                <Post
+                  key={index}
+                  dateText={formatDistance(
+                    new Date(record.updated_at),
+                    Date.now(),
+                    {
+                      addSuffix: true,
+                    },
+                  )}
+                  content={record.content}
+                  title={record.title}
+                  questionStatus={record.status}
+                  userData={userData}
+                />
+              ))}
+            </ScrollView>
+          </View>
