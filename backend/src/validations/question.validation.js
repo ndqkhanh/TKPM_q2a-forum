@@ -7,6 +7,13 @@ const createQuestion = {
   }),
 };
 
+const deleteQuestion = {
+  params: Joi.object().keys({
+    questionId: Joi.string().uuid().required(),
+  }),
+};
+
 module.exports = {
   createQuestion,
+  deleteQuestion,
 };
