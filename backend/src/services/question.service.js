@@ -15,6 +15,27 @@ const createQuestion = async (req) => {
   return question;
 };
 
+const deleteQuestionById = async (questionId) => {
+  const existQuestion = await prisma.questions.findUnique({
+    where: {
+      id: questionId,
+    },
+  });
+
+  if (!existQuestion) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Question Not Found');
+  }
+
+  const deleteQuestion = await prisma.questions.delete({
+    where: {
+      id: questionId,
+    },
+  });
+
+  return deleteQuestion;
+};
+
 module.exports = {
   createQuestion,
+  deleteQuestionById,
 };
