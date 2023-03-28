@@ -9,4 +9,7 @@ route
   .route('/')
   .post(auth('createQuestion'), validate(questionValidation.createQuestion), questionControlller.createQuestion);
 
+route
+  .route('/:questionId')
+  .delete(auth('deleteQuestion'), validate(questionValidation.deleteQuestion), questionControlller.deleteQuestion);
 module.exports = route;
