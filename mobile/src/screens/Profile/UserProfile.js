@@ -406,3 +406,47 @@ const ProfileScreen = ({ navigation, route }) => {
 };
 
 export default ProfileScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  body: {
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  headerContainer: {
+    height: 50,
+    backgroundColor: Colors.white,
+    // justifyContent: "center",
+    //marginHorizontal: 20,
+    padding: 10,
+    alignItems: "center",
+    flexDirection: "row",
+    paddingHorizontal: 20,
+    justifyContent: "space-between",
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  infoSection: {
+    margin: 10,
+    flexDirection: "row",
+  },
+  title: {
+    color: "black",
+    fontSize: 30,
+    fontWeight: "bold",
+    marginTop: 10,
+  },
+  QA_card: {
+    height: 120,
+    width: "45%",
+    padding: 5,
+    marginLeft: 10,
+  },
+  menu: {
+    borderRadius: 0,
+  },
+});
