@@ -24,3 +24,40 @@ import {
 import { voteAndUnvoteAnswer } from "~services/voting";
 import { deleteQuestion } from "~services/Question";
 
+const ScreensQ2AMain = ({ navigation, route }) => {
+  const { questionId } = route.params;
+
+  const [page, setPage] = useState(0);
+  const [limit, setLimit] = useState(0);
+
+  const [question, setQuestion] = useState(null);
+  const [countAnswer, setCountAnswer] = useState(0);
+  const [answersAndVotes, setAnswersAndVotes] = useState([]);
+  const [answerId, setAnswerId] = useState("");
+
+  // Use context to get userdata
+  const { userData } = useContext(UserContext);
+
+  // Previous pagination
+  const pressPrev = () => {
+    page - 1 >= 0
+      ? fetchGetAllAnswersAndVotings(questionId, page - 1, limit)
+      : null;
+  };
+  // Next pagination
+  const pressNext = () => {
+    page + 1 < Math.ceil(countAnswer / limit)
+      ? fetchGetAllAnswersAndVotings(questionId, page + 1, limit)
+      : null;
+  };
+  // Fetch Pick correct answer
+  const fetchPickACorrectAnswer = async (answerId, status) => {
+    const res = await pickACorrectAnswer(answerId, status);
+    if (res.success == true) {
+      fetchGetAllAnswersAndVotings(questionId, page, limit);
+    } else {
+      Alert.alert(
+        "There is an error occurs. Please reload to proceed this action.",
+      );
+    }
+  };
