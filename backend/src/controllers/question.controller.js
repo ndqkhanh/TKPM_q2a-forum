@@ -9,6 +9,13 @@ const createQuestion = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send(question);
 });
 
+const searchQuestion = catchAsync(async (req, res) => {
+  const countQuestions = await questionService.countQuestionInDB(req);
+  const listQuestions = await questionService.searchQuestion(req);
+  res.send({ count: countQuestions, questions: listQuestions });
+});
+
 module.exports = {
   createQuestion,
+  searchQuestion,
 };
