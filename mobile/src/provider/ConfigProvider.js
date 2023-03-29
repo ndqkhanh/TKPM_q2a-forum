@@ -17,6 +17,12 @@ const ConfigProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    if (auth && userData) {
+      fetchConfigInformation();
+    }
+  }, [auth, userData]);
+
   return (
     <ConfigContext.Provider
       value={{
