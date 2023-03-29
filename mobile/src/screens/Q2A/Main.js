@@ -97,3 +97,37 @@ const ScreensQ2AMain = ({ navigation, route }) => {
       },
     );
   };
+
+  // Fetch Delete Question
+  const fetchDeleteQuestion = async () => {
+    Alert.alert(
+      "Delete Question",
+      "Are you sure to delete this question?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => Alert.alert("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: async () => {
+            let token = await AsyncStorage.getItem("UserToken");
+            const response = await deleteQuestion(token, questionId);
+            if (response.success == true) {
+              navigation.navigate("Home");
+            } else {
+              Alert.alert("Delete question failure.");
+            }
+          },
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () =>
+          Alert.alert(
+            "This alert was dismissed by tapping outside of the alert dialog.",
+          ),
+      },
+    );
+  };
