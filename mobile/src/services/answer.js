@@ -99,6 +99,37 @@ const getAllAnswersAndVotings = async (questionId, page, limit) => {
   return null;
 };
 
+const updateAnswer = async (answerId, passContent) => {
+  let message = {};
+  const token = await AsyncStorage.getItem("UserToken");
+  try {
+    let respondUpdateQuestion = await fetch(`${API_URL}/answer/${answerId}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        content: `${passContent}`,
+      }),
+    });
+    const mjson = await respondUpdateQuestion.json();
+    if (mjson.hasOwnProperty("id")) {
+      message = {
+        header: "Update sucess",
+        content: "Your answer has been updated!",
+      };
+    } else if (mjson.hasOwnProperty("message"))
+      message = { header: "Error", content: mjson.message };
+    else return null;
+  } catch (error) {
+    message = { header: "Error", content: error };
+    //console.log(error);
+  }
+  return message;
+};
+
 export {
   postAnswer,
   pickACorrectAnswer,
