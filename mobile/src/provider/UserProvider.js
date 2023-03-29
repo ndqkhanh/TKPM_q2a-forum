@@ -20,6 +20,35 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const checkAuth = async () => {
+    try {
+      let storageToken = await AsyncStorage.getItem("UserToken");
+      if (!storageToken) return false;
+      let responseCheckToken = await fetch(`${API_URL}/user`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${storageToken}`,
+        },
+      });
+      const mjson = await responseCheckToken.json();
+      return !!mjson.id;
+    } catch (error) {
+      console.log("error", error);
+    }
+    return false;
+  };
+
+  const check = async () => {
+    let data = await checkAuth();
+    if (data) {
+      fetchUserInformation();
+    } else {
+      setAuth(false);
+    }
+  };
+
   useEffect(() => {
     check();
   }, []);
