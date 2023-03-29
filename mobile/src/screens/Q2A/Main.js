@@ -320,4 +320,58 @@ const ScreensQ2AMain = ({ navigation, route }) => {
     </SafeAreaView>
   );
 };
-
+const styles = StyleSheet.create({
+  headerContainer: {
+    height: 50,
+    backgroundColor: Colors.white,
+    justifyContent: "center",
+    marginHorizontal: 20,
+    alignItems: "center",
+    // flexDirection: "row",
+    // justifyContent: "space-between",
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: Colors.blue40,
+  },
+  body: {
+    flex: 1,
+    padding: 10,
+    paddingHorizontal: 20,
+    backgroundColor: Colors.cyan70,
+  },
+  back: {
+    fontSize: 30,
+    color: Colors.cyan10,
+  },
+  answerContainer: {
+    backgroundColor: Colors.white,
+    padding: 10,
+    marginTop: 20,
+  },
+  numOfAnswers: {
+    fontWeight: "bold",
+    fontSize: 23,
+    color: Colors.blue40,
+  },
+  btnPage: {
+    backgroundColor: Colors.blue40,
+    paddingVertical: 5,
+    width: 150,
+    height: 35,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+  },
+  btnTextPage: {
+    fontWeight: "bold",
+    fontSize: 15,
+    color: Colors.white,
+  },
+  newAnswer: {
+    alignSelf: "center",
+    marginTop: 20,
+  },
+});
+export default ScreensQ2AMain;
