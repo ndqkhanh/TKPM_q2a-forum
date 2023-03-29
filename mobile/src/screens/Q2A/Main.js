@@ -131,3 +131,58 @@ const ScreensQ2AMain = ({ navigation, route }) => {
       },
     );
   };
+
+  const fetchVoteAndUnvoteAnswer = async (status, answerId) => {
+    let token = await AsyncStorage.getItem("UserToken");
+
+    const response = await voteAndUnvoteAnswer(token, answerId, status);
+    if (response.success == true) {
+      fetchGetAllAnswersAndVotings(questionId, page, 5);
+      // setAnswersAndVotes((answersAndVotes) => {
+      //   return answersAndVotes.map((item) => {
+      //     if (item.answer.id === answerId) {
+      //       let t = status == 0 ? 1 : status == 1 ? -1 : 0
+      //       return {
+      //         ...item,
+      //         minus_upvote_downvote: item.minus_upvote_downvote + status ,
+      //       };
+      //     }
+      //   });
+      // });
+    } else {
+      Alert.alert(
+        "There is an error occurs. Please reload to proceed this action.",
+      );
+    }
+  };
+
+  // Fetch get all answer and voting
+  const fetchGetAllAnswersAndVotings = async (questionId, page, limit) => {
+    const data = await getAllAnswersAndVotings(questionId, page, limit);
+    if (data.question) {
+      setQuestion(data.question);
+      setCountAnswer(data.answers.count);
+      setAnswersAndVotes(data.answers.data);
+      setPage(page);
+      setLimit(limit);
+      return true;
+    } else return false;
+  };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", async () => {
+      let res = await fetchGetAllAnswersAndVotings(questionId, 0, 5);
+      if (res == false) navigation.pop();
+    });
+
+    return () => {
+      unsubscribe();
+      setQuestion(null);
+      setCountAnswer(0);
+      setAnswersAndVotes([]);
+      setPage(0);
+      setLimit(0);
+    };
+  }, []);
+
+  if (!question || !userData) return null;
