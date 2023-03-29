@@ -295,3 +295,29 @@ const ScreensQ2AMain = ({ navigation, route }) => {
             }
             onUpVote={() => fetchVoteAndUnvoteAnswer(0, item.answer.id)}
             onDownVote={() => fetchVoteAndUnvoteAnswer(1, item.answer.id)}
+            onUnVote={() => fetchVoteAndUnvoteAnswer(2, item.answer.id)}
+            onDelete={
+              userData.id == item.answer.uid
+                ? () => {
+                    setAnswerId(item.answer.id);
+                    fetchDeleteAnswer(item.answer.id);
+                  }
+                : null
+            }
+            onUpdate={
+              userData.id == item.answer.uid
+                ? () =>
+                    navigation.navigate("Post answer", {
+                      update: true,
+                      aid: item.answer.id,
+                      Content: item.answer.content,
+                    })
+                : null
+            }
+          />
+        ))}
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
