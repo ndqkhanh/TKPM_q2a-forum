@@ -114,6 +114,26 @@ const updateConfiguration = async (token, slug, value) => {
   }
 };
 
+const banUser = async (token, userId, status) => {
+  try {
+    let data = await fetch(`${API_URL}/admin/ban-user/${userId}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        status,
+      }),
+    });
+    data = await data.json();
+    return data;
+  } catch (error) {
+    console.error("error---", error);
+  }
+};
+
 export {
   getMetrics,
   getPendingQuestions,
