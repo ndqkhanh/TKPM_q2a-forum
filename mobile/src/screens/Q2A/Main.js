@@ -186,3 +186,112 @@ const ScreensQ2AMain = ({ navigation, route }) => {
   }, []);
 
   if (!question || !userData) return null;
+
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: Colors.white,
+      }}
+    >
+      <View style={styles.headerContainer}>
+        <TouchableHighlight
+          onPress={() => navigation.pop()}
+          style={{
+            position: "absolute",
+            alignSelf: "center",
+            left: 0,
+          }}
+          underlayColor={"transparent"}
+        >
+          <Icon name="arrow-back-outline" style={styles.back} />
+        </TouchableHighlight>
+
+        <Text style={styles.header}>{question.questionInfo.title}</Text>
+      </View>
+      <ScrollView
+        contentContainerStyle={{
+          paddingBottom: 30,
+        }}
+        style={styles.body}
+        showsVerticalScrollIndicator={false}
+      >
+        <Post
+          dateText={formatDistance(
+            new Date(question.questionInfo.updated_at),
+            Date.now(),
+            { addSuffix: true },
+          )}
+          content={question.questionInfo.content}
+          userData={{
+            name: question.name,
+            avatarUrl: question.avatarUrl,
+          }}
+          onDelete={
+            userData.id == question.questionInfo.uid
+              ? fetchDeleteQuestion
+              : null
+          }
+          onUpdate={
+            userData.id == question.questionInfo.uid
+              ? () =>
+                  navigation.navigate("Editor", {
+                    update: true,
+                    qid: questionId,
+                    Content: question.questionInfo.content,
+                    Title: question.questionInfo.title,
+                  })
+              : null
+          }
+        />
+        <TouchableOpacity
+          style={styles.newAnswer}
+          activeOpacity={0.8}
+          onPress={() => {
+            navigation.navigate("Post answer", { qid: questionId });
+          }}
+        >
+          <View style={styles.btnPage}>
+            <Text style={styles.btnTextPage}>Write answer</Text>
+          </View>
+        </TouchableOpacity>
+        <View style={styles.answerContainer}>
+          <Text style={styles.numOfAnswers}>{countAnswer} answers</Text>
+        </View>
+
+        <Q2APagination
+          page={page + 1}
+          maxPage={Math.ceil(countAnswer / limit)}
+          pressPrev={() => pressPrev()}
+          pressNext={() => pressNext()}
+        />
+        {answersAndVotes.map((item, index) => (
+          <Post
+            voting={item.minus_upvote_downvote}
+            key={index}
+            correctAnswer={item.answer.correct}
+            dateText={formatDistance(
+              new Date(item.answer.updated_at),
+              Date.now(),
+              { addSuffix: true },
+            )}
+            content={item.answer.content}
+            userData={{
+              name: item.name,
+              avatarUrl: item.profilepictureurl,
+            }}
+            votingStatus={item.voting_status}
+            onPickCorrectAnswer={
+              userData.id == question.questionInfo.uid
+                ? () => {
+                    if (item.answer.correct != true) {
+                      fetchPickACorrectAnswer(item.answer.id, true);
+                    } else {
+                      fetchPickACorrectAnswer(item.answer.id, false);
+                    }
+                    Alert.alert("Success");
+                  }
+                : null
+            }
+            onUpVote={() => fetchVoteAndUnvoteAnswer(0, item.answer.id)}
+            onDownVote={() => fetchVoteAndUnvoteAnswer(1, item.answer.id)}
