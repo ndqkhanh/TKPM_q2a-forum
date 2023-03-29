@@ -14,7 +14,13 @@ const deleteQuestion = catchAsync(async (req, res) => {
   res.send({ success: !!question });
 });
 
+const searchQuestion = catchAsync(async (req, res) => {
+  const countQuestions = await questionService.countQuestionInDB(req);
+  const listQuestions = await questionService.searchQuestion(req);
+  res.send({ count: countQuestions, questions: listQuestions });
+});
 module.exports = {
   createQuestion,
   deleteQuestion,
+  searchQuestion,
 };
