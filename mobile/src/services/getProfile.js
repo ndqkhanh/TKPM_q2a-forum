@@ -19,4 +19,21 @@ const getUserProfile = async (userId) => {
   }
 };
 
+const getMyProfile = async (token) => {
+  try {
+    let data = await fetch(`${API_URL}/user`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    data = await data.json();
+    return data;
+  } catch (error) {
+    console.error("error: ", error);
+  }
+};
+
 export { getUserProfile, getMyProfile };
