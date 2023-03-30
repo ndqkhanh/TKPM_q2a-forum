@@ -78,5 +78,23 @@ const searchQuestion = async (keyword, page, limit) => {
     return message;
 };
 
+const deleteQuestion = async (token, questionId) => {
+    try {
+        let data = await fetch(`${API_URL}/question/${questionId}`, {
+            method: "DELETE",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        data = await data.json();
+        return data;
+    } catch (error) {
+        console.log("error", error);
+        Alert.alert("error", error.message);
+    }
+    return null;
+};
 
-export { postQuestion, searchQuestion};
+export { postQuestion, searchQuestion, deleteQuestion};
