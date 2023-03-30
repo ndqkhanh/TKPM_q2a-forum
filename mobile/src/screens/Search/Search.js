@@ -149,39 +149,41 @@ const SearchScreen = ({ navigation }) => {
   );
 };
 
-hh
-h
-h
-h
-h
-h
-h
-h
-h
-h
-h
-h
+export default SearchScreen;
 
-h
-hh
-h
-h
-h
-
-hh
-h
-h
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-
-
+const styles = StyleSheet.create({
+  imgNotFound: {
+    marginTop: 40,
+    alignSelf: "center",
+  },
+  imgIntro: {
+    marginTop: 40,
+    alignSelf: "center",
+    width: 300,
+    height: 300,
+  },
+  backgroundView: {
+    flex: 1,
+    backgroundColor: Colors.cyan70,
+  },
+  body: {
+    flex: 1,
+    padding: 10,
+    paddingHorizontal: 20,
+    backgroundColor: Colors.cyan70,
+  },
+  headerContainer: {
+    backgroundColor: Colors.white,
+    // justifyContent: "center",
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  resultTxt: {
+    fontSize: 15,
+    fontWeight: "bold",
+    alignSelf: "center",
+    marginTop: 20,
+  },
+});
