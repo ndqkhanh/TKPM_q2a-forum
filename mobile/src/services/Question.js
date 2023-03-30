@@ -41,4 +41,42 @@ const postQuestion = async (passTitle, passContent) => {
   return message;
 };
 
-export { postQuestion};
+const searchQuestion = async (keyword, page, limit) => {
+    let message = {};
+    if (keyword == null || keyword == "") {
+        return null;
+    } else {
+        try {
+            const token = await AsyncStorage.getItem("UserToken");
+            let responseSearchQuestion = await fetch(
+                `${API_URL}/question/search/${page}/${limit}`,
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        keyword: `${keyword}`,
+                    }),
+                },
+            );
+
+            const mjson = await responseSearchQuestion.json();
+            if (mjson.hasOwnProperty("questions")) {
+                //alert(JSON.stringify(mjson))
+                return mjson;
+            } else if (mjson.hasOwnProperty("message"))
+                message = { header: "Error", content: mjson.message };
+            else return null;
+        } catch (error) {
+            message = { header: "Error", content: error };
+            console.log(error);
+        }
+    }
+    return message;
+};
+
+
+export { postQuestion, searchQuestion};
