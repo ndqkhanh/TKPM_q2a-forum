@@ -13,7 +13,14 @@ const deleteQuestion = {
   }),
 };
 
+const updateQuestion = {
+  body: Joi.object().keys({
+    content: Joi.string().required(),
+    title: Joi.string().required(),
+  }),
+};
 module.exports = {
   createQuestion,
   deleteQuestion,
+  updateQuestion,
 };

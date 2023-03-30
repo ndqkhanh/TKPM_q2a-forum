@@ -24,7 +24,14 @@ const disableUser = async (req) => {
   return user;
 };
 
+const getAllMetrics = async () => {
+  const questionCount = await prisma.questions.count();
+  const userCount = await prisma.users.count();
+  const answerCount = await prisma.answers.count();
+  return { numOfQuestions: questionCount, numOfUsers: userCount, numOfAnswers: answerCount };
+};
 
 module.exports = {
   disableUser,
+  getAllMetrics,
 };

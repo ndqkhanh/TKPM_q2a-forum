@@ -7,6 +7,12 @@ const banUser = catchAsync(async (req, res) => {
   res.send({ success: !!user });
 });
 
+const getMetrics = catchAsync(async (req, res) => {
+  const metrics = await adminService.getAllMetrics();
+  res.send(metrics);
+});
+
 module.exports = {
   banUser,
+  getMetrics,
 };
