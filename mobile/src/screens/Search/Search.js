@@ -48,4 +48,140 @@ const SearchScreen = ({ navigation }) => {
     }
   };
 
+  return (
+    <SafeAreaView style={styles.backgroundView}>
+      {/* <Text style={{ fontSize: 30, alignSelf: 'center', color: Colors.blue40 }}>Find question</Text> */}
+      <View style={styles.headerContainer}>
+        <View
+          style={{
+            height: 50,
+            marginHorizontal: 10,
+            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Text style={styles.header}>
+            {configData.find((item) => item.slug === "FORUM_NAME")?.value || ""}
+          </Text>
+          <Icon
+            name="log-out-outline"
+            style={{
+              fontSize: 30,
+              color: Colors.cyan10,
+            }}
+          />
+        </View>
+      </View>
+      <View style={{ paddingHorizontal: 20, paddingTop: 20 }}>
+        <SearchBar
+          textChange={setTitleSearch}
+          onPressSearch={() => {
+            setPage(1);
+            setCountRes(null);
+            getData(true, 0, limit);
+          }}
+        ></SearchBar>
+        {countRes > 0 ? (
+          <Text style={styles.resultTxt}>Found {countRes} results</Text>
+        ) : null}
+        {searchData.length !== 0 ? (
+          <Q2APagination
+            page={page}
+            maxPage={Math.ceil(countRes / limit)}
+            pressPrev={() => pressPrev()}
+            pressNext={() => pressNext()}
+          />
+        ) : null}
+      </View>
+      {countRes == 0 ? (
+        <Image
+          source={require("~assets/img/no-result-found.png")}
+          style={styles.imgNotFound}
+        />
+      ) : (
+        <ScrollView style={styles.body}>
+          {searchData
+            .filter(
+              (item, index) =>
+                index >= (page - 1) * limit && index < page * limit,
+            )
+            .map((record, index) => (
+              <Post
+                key={index}
+                dateText={formatDistance(
+                  new Date(record.questionData.updated_at),
+                  Date.now(),
+                  {
+                    addSuffix: true,
+                  },
+                )}
+                title={record.questionData.title}
+                content={record.questionData.content}
+                numOfAnswers={record.numOfAnswers}
+                userData={{
+                  name: record.userData.name,
+                  avatarUrl: record.userData.profilepictureurl,
+                }}
+                onPressQ2A={() => {
+                  console.log("navigate to Q2A");
+                  navigation.navigate("Q2A", {
+                    questionId: record.questionData.id,
+                  });
+                }}
+                correctAnswer={record.correctAnswerExists}
+                onPressAnswer={() => {
+                  navigation.navigate("Post answer", {
+                    qid: record.questionData.id,
+                  });
+                }}
+              />
+            ))}
+        </ScrollView>
+      )}
+      {/* <View style={{ flex: 1 }}>
+      <Image
+          source={require("~assets/img/bloodbros-search.gif")}
+          style={styles.imgIntro}
+        />
+      </View> */}
+    </SafeAreaView>
+  );
+};
+
+hh
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+
+h
+hh
+h
+h
+h
+
+hh
+h
+h
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+
 
