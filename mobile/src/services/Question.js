@@ -97,4 +97,43 @@ const deleteQuestion = async (token, questionId) => {
     return null;
 };
 
-export { postQuestion, searchQuestion, deleteQuestion};
+const updateQuestion = async (qid, passTitle, passContent) => {
+    let message = {};
+    if (passTitle == null || passContent == null) {
+        message = {
+            header: "Can not post pending question list",
+            content: "Missing title or content",
+        };
+    } else {
+        try {
+            const token = await AsyncStorage.getItem("UserToken");
+            let responseUpdateQuestion = await fetch(`${API_URL}/question/${qid}`, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    title: `${passTitle}`,
+                    content: `${passContent}`,
+                }),
+            });
+
+            const mjson = await responseUpdateQuestion.json();
+            if (mjson.hasOwnProperty("id")) {
+                message = {
+                    header: "Update Sucess",
+                    content: "Your question has been updated!",
+                };
+            } else if (mjson.hasOwnProperty("message"))
+                message = { header: "Error", content: mjson.message };
+            else return null;
+        } catch (error) {
+            message = { header: "Error", content: error };
+            console.log(error);
+        }
+    }
+    return message;
+};
+export { postQuestion, searchQuestion, deleteQuestion, updateQuestion };
