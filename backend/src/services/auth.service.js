@@ -96,6 +96,7 @@ const verifyEmail = async (verifyEmailToken) => {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Email verification failed');
   }
 };
+
 module.exports = {
   loginUserWithUsernameAndPassword,
   logout,

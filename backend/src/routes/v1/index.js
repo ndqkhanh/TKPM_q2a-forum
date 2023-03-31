@@ -1,9 +1,12 @@
 const express = require('express');
 const authRoute = require('./auth.route');
-const answerRoute = require('./answer.route');
-const questionRoute = require('./question.route');
-const adminRoute = require('./admin.route');
 const userRoute = require('./user.route');
+const docsRoute = require('./docs.route');
+const answerRoute = require('./answer.route');
+const adminRoute = require('./admin.route');
+const config = require('../../config/config');
+const questionRoute = require ('./question.route');
+const votingRoute = require ('./voting.route');
 const router = express.Router();
 
 const defaultRoutes = [
@@ -24,9 +27,10 @@ const defaultRoutes = [
     route: questionRoute,
   },
   {
-    path: '/admin',
-    route: adminRoute,
-  }
+    path: '/voting',
+    route: votingRoute,
+  },
+  { path: '/admin', route: adminRoute },
 ];
 
 const devRoutes = [
@@ -47,4 +51,5 @@ if (config.env === 'development') {
     router.use(route.path, route.route);
   });
 }
+
 module.exports = router;

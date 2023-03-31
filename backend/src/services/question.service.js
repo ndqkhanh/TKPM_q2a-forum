@@ -35,6 +35,42 @@ const deleteQuestionById = async (questionId) => {
   return deleteQuestion;
 };
 
+const updateQuestion = async (req) => {
+  const { questionId } = req.params;
+  const question = await prisma.questions.findUnique({
+    where: {
+      id: questionId,
+    },
+  });
+
+  if (!question) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Question Not Found');
+  }
+
+  if (question.uid != req.user.id) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'You are not the owner of this question');
+  }
+
+  if (question.status != 2) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Question is not approved!');
+  }
+  const newTitle = req.body.title;
+  const newContent = req.body.content;
+
+  const updatedQuestion = await prisma.questions.update({
+    where: {
+      id: questionId,
+    },
+    data: {
+      content: newContent,
+      title: newTitle,
+      updated_at: new Date(),
+    },
+  });
+
+  return updatedQuestion;
+};
+
 const countQuestionInDB = async (req) => {
   const countQuestion = await prisma.questions.count({
     where: {
@@ -46,7 +82,6 @@ const countQuestionInDB = async (req) => {
   });
   return countQuestion;
 };
-
 const searchQuestion = async (req) => {
   const countQuestions = await prisma.questions.count({});
   if (req.params.offset > countQuestions / req.params.limit) {
@@ -161,42 +196,6 @@ const getLatestFeed = async (page) => {
   return { count: quesCount, data: feed };
 };
 
-const updateQuestion = async (req) => {
-  const { questionId } = req.params;
-  const question = await prisma.questions.findUnique({
-    where: {
-      id: questionId,
-    },
-  });
-
-  if (!question) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Question Not Found');
-  }
-
-  if (question.uid !== req.user.id) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'You are not the owner of this question');
-  }
-
-  if (question.status !== 2) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Question is not approved!');
-  }
-  const newTitle = req.body.title;
-  const newContent = req.body.content;
-
-  const updatedQuestion = await prisma.questions.update({
-    where: {
-      id: questionId,
-    },
-    data: {
-      content: newContent,
-      title: newTitle,
-      updated_at: new Date(),
-    },
-  });
-
-  return updatedQuestion;
-};
-
 const getQuestionByID = async (req) => {
   const questionRecord = await prisma.questions.findUnique({
     where: { id: req.params.questionId },
@@ -211,15 +210,6 @@ const getQuestionByID = async (req) => {
     avatarUrl: userRecord.profilepictureurl,
   };
 };
-
-const countAnswerByQuestionID = async (req) => {
-  const answers = await prisma.answers.findMany({
-    where: { qid: req.params.questionId },
-  });
-
-  return answers.length;
-};
-
 const GetAnswersByQuestionIDPagination = async (req) => {
   const answers = await prisma.answers.findMany({
     skip: req.params.page * req.params.limit,
@@ -263,15 +253,23 @@ const GetAnswersAndVotings = async (answers, userId) => {
 
   return answersAndvotings;
 };
+
+const countAnswerByQuestionID = async (req) => {
+  const answers = await prisma.answers.findMany({
+    where: { qid: req.params.questionId },
+  });
+
+  return answers.length;
+};
 module.exports = {
   createQuestion,
   deleteQuestionById,
-  countQuestionInDB,
+  updateQuestion,
   searchQuestion,
   getLatestFeed,
-  updateQuestion,
-  getQuestionByID,
-  countAnswerByQuestionID,
   GetAnswersByQuestionIDPagination,
   GetAnswersAndVotings,
+  countAnswerByQuestionID,
+  countQuestionInDB,
+  getQuestionByID,
 };

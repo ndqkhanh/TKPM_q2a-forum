@@ -30,8 +30,8 @@ const getMyQuestions = {
 };
 
 module.exports = {
+  getUsers,
   getUser,
   updateUser,
-  getUsers,
   getMyQuestions,
 };

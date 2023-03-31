@@ -20,12 +20,6 @@ const updateQuestion = {
   }),
 };
 
-const getLatestFeed = {
-  params: Joi.object().keys({
-    page: Joi.number().required(),
-  }),
-};
-
 const searchQuestion = {
   body: Joi.object().keys({
     keyword: Joi.string().required(),
@@ -33,6 +27,12 @@ const searchQuestion = {
   params: Joi.object().keys({
     offset: Joi.number().required(),
     limit: Joi.number().required(),
+  }),
+};
+
+const getLatestFeed = {
+  params: Joi.object().keys({
+    page: Joi.number().required(),
   }),
 };
 
@@ -47,7 +47,7 @@ module.exports = {
   createQuestion,
   deleteQuestion,
   updateQuestion,
-  getLatestFeed,
   searchQuestion,
+  getLatestFeed,
   getAllAnswersAndVotings,
 };

@@ -14,6 +14,11 @@ const deleteQuestion = catchAsync(async (req, res) => {
   res.send({ success: !!question });
 });
 
+const updateQuestion = catchAsync(async (req, res) => {
+  const question = await questionService.updateQuestion(req);
+  res.send(question);
+});
+
 const searchQuestion = catchAsync(async (req, res) => {
   const countQuestions = await questionService.countQuestionInDB(req);
   const listQuestions = await questionService.searchQuestion(req);
@@ -23,11 +28,6 @@ const searchQuestion = catchAsync(async (req, res) => {
 const getLatestFeed = catchAsync(async (req, res) => {
   const latestFeed = await questionService.getLatestFeed(req.params.page);
   res.send(latestFeed);
-});
-
-const updateQuestion = catchAsync(async (req, res) => {
-  const question = await questionService.updateQuestion(req);
-  res.send(question);
 });
 
 const getAllAnswersAndVotings = catchAsync(async (req, res) => {
@@ -40,8 +40,8 @@ const getAllAnswersAndVotings = catchAsync(async (req, res) => {
 module.exports = {
   createQuestion,
   deleteQuestion,
+  updateQuestion,
   searchQuestion,
   getLatestFeed,
-  updateQuestion,
   getAllAnswersAndVotings,
 };

@@ -10,19 +10,6 @@ const banUser = {
   }),
 };
 
-const getUsers = {
-  params: Joi.object().keys({
-    page: Joi.number().required(),
-    limit: Joi.number().required(),
-  }),
-};
-
-const getPendingQuestions = {
-  params: Joi.object().keys({
-    page: Joi.number().required(),
-    limit: Joi.number().required(),
-  }),
-};
 const setConfiguration = {
   params: Joi.object().keys({
     slug: Joi.string().required(),
@@ -32,9 +19,31 @@ const setConfiguration = {
   }),
 };
 
+const getPendingQuestions = {
+  params: Joi.object().keys({
+    page: Joi.number().required(),
+    limit: Joi.number().required(),
+  }),
+};
+
+const approveDeclineQuestion = {
+  body: Joi.object().keys({
+    questionId: Joi.string().uuid().required(),
+    status: Joi.number().required().custom(status),
+  }),
+};
+
+const getUsers = {
+  params: Joi.object().keys({
+    page: Joi.number().required(),
+    limit: Joi.number().required(),
+  }),
+};
+
 module.exports = {
   banUser,
-  getUsers,
-  getPendingQuestions,
   setConfiguration,
+  getPendingQuestions,
+  approveDeclineQuestion,
+  getUsers,
 };
