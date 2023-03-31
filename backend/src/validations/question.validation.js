@@ -26,9 +26,19 @@ const getLatestFeed = {
   }),
 };
 
+const searchQuestion = {
+  body: Joi.object().keys({
+    keyword: Joi.string().required(),
+  }),
+  params: Joi.object().keys({
+    offset: Joi.number().required(),
+    limit: Joi.number().required(),
+  }),
+};
 module.exports = {
   createQuestion,
   deleteQuestion,
   updateQuestion,
   getLatestFeed,
+  searchQuestion,
 };
