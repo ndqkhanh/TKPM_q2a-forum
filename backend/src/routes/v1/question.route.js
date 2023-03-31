@@ -10,6 +10,10 @@ route
   .post(auth('createQuestion'), validate(questionValidation.createQuestion), questionControlller.createQuestion);
 
 route
+  .route('/feed/:page')
+  .get(auth('getLatestFeed'), validate(questionValidation.getLatestFeed), questionControlller.getLatestFeed);
+
+route
   .route('/:questionId')
   .delete(auth('deleteQuestion'), validate(questionValidation.deleteQuestion), questionControlller.deleteQuestion)
   .post(auth('updateQuestion'), validate(questionValidation.updateQuestion), questionControlller.updateQuestion);

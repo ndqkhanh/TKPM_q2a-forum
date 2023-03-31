@@ -19,8 +19,16 @@ const updateQuestion = {
     title: Joi.string().required(),
   }),
 };
+
+const getLatestFeed = {
+  params: Joi.object().keys({
+    page: Joi.number().required(),
+  }),
+};
+
 module.exports = {
   createQuestion,
   deleteQuestion,
   updateQuestion,
+  getLatestFeed,
 };

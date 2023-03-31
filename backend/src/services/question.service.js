@@ -102,9 +102,69 @@ const searchQuestion = async (req) => {
   return data;
 };
 
+const getLatestFeed = async (page) => {
+  const configuration = await prisma.configuration.findUnique({
+    where: {
+      slug: 'NUM_OF_QUESTIONS_IN_FEED',
+    },
+  });
+
+  let numFeed = 10;
+  try {
+    numFeed = parseInt(configuration.value);
+  } catch (error) {
+    console.log('Not a number', error);
+  }
+
+  const feed = await prisma.questions.findMany({
+    skip: page * numFeed,
+    take: numFeed,
+    where: {
+      status: 2,
+    },
+    orderBy: {
+      updated_at: 'desc',
+    },
+  });
+
+  for (let i = 0; i < feed.length; i++) {
+    const question = feed[i];
+    question.numOfAnswers = await prisma.answers.count({
+      where: {
+        qid: question.id,
+      },
+    });
+    const answer = await prisma.answers.findFirst({
+      where: {
+        qid: question.id,
+        correct: true,
+      },
+    });
+    question.correctAnswerExists = !!answer;
+    question.userData = await prisma.users.findUnique({
+      where: {
+        id: question.uid,
+      },
+      select: {
+        name: true,
+        profilepictureurl: true,
+      },
+    });
+  }
+
+  const quesCount = await prisma.questions.count({
+    where: {
+      status: 2,
+    },
+  });
+
+  return { count: quesCount, data: feed };
+};
+
 module.exports = {
   createQuestion,
   deleteQuestionById,
   countQuestionInDB,
   searchQuestion,
+  getLatestFeed,
 };
