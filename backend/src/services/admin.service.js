@@ -31,7 +31,40 @@ const getAllMetrics = async () => {
   return { numOfQuestions: questionCount, numOfUsers: userCount, numOfAnswers: answerCount };
 };
 
+const getPendingQuestions = async (page, limit) => {
+  const listPendingQuestions = await prisma.questions.findMany({
+    skip: page * limit,
+    take: limit,
+    where: {
+      status: 0,
+    },
+    orderBy: {
+      updated_at: 'desc',
+    },
+  });
+  const countPendingQuestions = await prisma.questions.count({
+    where: {
+      status: 0,
+    },
+  });
+
+  for (let i = 0; i < listPendingQuestions.length; i++) {
+    const question = listPendingQuestions[i];
+    question.userData = await prisma.users.findUnique({
+      where: {
+        id: question.uid,
+      },
+      select: {
+        name: true,
+        profilepictureurl: true,
+      },
+    });
+  }
+  return { count: countPendingQuestions, data: listPendingQuestions };
+};
+
 module.exports = {
   disableUser,
   getAllMetrics,
+  getPendingQuestions,
 };
