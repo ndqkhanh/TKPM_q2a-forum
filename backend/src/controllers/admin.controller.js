@@ -17,8 +17,14 @@ const getUsers = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const listConfigurations = catchAsync(async (req, res) => {
+  const configuration = await adminService.listConfigurations();
+  res.send(configuration);
+});
+
 module.exports = {
   banUser,
   getMetrics,
   getUsers,
+  listConfigurations,
 };
