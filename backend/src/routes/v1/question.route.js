@@ -21,4 +21,13 @@ route
   .route('/:questionId')
   .delete(auth('deleteQuestion'), validate(questionValidation.deleteQuestion), questionControlller.deleteQuestion)
   .post(auth('updateQuestion'), validate(questionValidation.updateQuestion), questionControlller.updateQuestion);
+
+route
+  .route('/:questionId/:page/:limit')
+  .get(
+    auth('getAllAnswersAndVotings'),
+    validate(questionValidation.getAllAnswersAndVotings),
+    questionControlller.getAllAnswersAndVotings
+  );
+
 module.exports = route;
