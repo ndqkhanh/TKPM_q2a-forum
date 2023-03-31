@@ -161,10 +161,47 @@ const getLatestFeed = async (page) => {
   return { count: quesCount, data: feed };
 };
 
+const updateQuestion = async (req) => {
+  const { questionId } = req.params;
+  const question = await prisma.questions.findUnique({
+    where: {
+      id: questionId,
+    },
+  });
+
+  if (!question) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Question Not Found');
+  }
+
+  if (question.uid !== req.user.id) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'You are not the owner of this question');
+  }
+
+  if (question.status !== 2) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Question is not approved!');
+  }
+  const newTitle = req.body.title;
+  const newContent = req.body.content;
+
+  const updatedQuestion = await prisma.questions.update({
+    where: {
+      id: questionId,
+    },
+    data: {
+      content: newContent,
+      title: newTitle,
+      updated_at: new Date(),
+    },
+  });
+
+  return updatedQuestion;
+};
+
 module.exports = {
   createQuestion,
   deleteQuestionById,
   countQuestionInDB,
   searchQuestion,
   getLatestFeed,
+  updateQuestion,
 };
