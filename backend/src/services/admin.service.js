@@ -63,8 +63,27 @@ const getPendingQuestions = async (page, limit) => {
   return { count: countPendingQuestions, data: listPendingQuestions };
 };
 
+const setConfiguration = async (req) => {
+  const isConfigExist = await prisma.configuration.findUnique({
+    where: { slug: req.params.slug },
+  });
+
+  if (!isConfigExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Configuration Not Found');
+  }
+
+  const config = await prisma.configuration.update({
+    where: { slug: req.params.slug },
+    data: {
+      value: req.body.value,
+    },
+  });
+
+  return config;
+};
 module.exports = {
   disableUser,
   getAllMetrics,
   getPendingQuestions,
+  setConfiguration,
 };

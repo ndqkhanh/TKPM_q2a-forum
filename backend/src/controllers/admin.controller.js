@@ -27,10 +27,16 @@ const getPendingQuestions = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const setConfiguration = catchAsync(async (req, res) => {
+  const config = await adminService.setConfiguration(req);
+  res.send({ success: !!config });
+});
+
 module.exports = {
   banUser,
   getMetrics,
   getUsers,
   listConfigurations,
   getPendingQuestions,
+  setConfiguration,
 };
