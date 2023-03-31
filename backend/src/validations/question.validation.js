@@ -35,10 +35,19 @@ const searchQuestion = {
     limit: Joi.number().required(),
   }),
 };
+
+const getAllAnswersAndVotings = {
+  params: Joi.object().keys({
+    questionId: Joi.string().uuid().required(),
+    page: Joi.number().required(),
+    limit: Joi.number().required(),
+  }),
+};
 module.exports = {
   createQuestion,
   deleteQuestion,
   updateQuestion,
   getLatestFeed,
   searchQuestion,
+  getAllAnswersAndVotings,
 };
