@@ -16,7 +16,7 @@ services:
   #   #   - node-network
 
   postgres:
-    container_name: postgres2
+    container_name: postgres
     image: postgres:9.6-alpine
     environment:
       - POSTGRES_DB=q2aforum
