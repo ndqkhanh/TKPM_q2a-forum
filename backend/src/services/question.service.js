@@ -197,6 +197,72 @@ const updateQuestion = async (req) => {
   return updatedQuestion;
 };
 
+const getQuestionByID = async (req) => {
+  const questionRecord = await prisma.questions.findUnique({
+    where: { id: req.params.questionId },
+  });
+  const userRecord = await prisma.users.findUnique({
+    where: { id: questionRecord.uid },
+  });
+  return {
+    questionInfo: questionRecord,
+    uid: userRecord.id,
+    name: userRecord.name,
+    avatarUrl: userRecord.profilepictureurl,
+  };
+};
+
+const countAnswerByQuestionID = async (req) => {
+  const answers = await prisma.answers.findMany({
+    where: { qid: req.params.questionId },
+  });
+
+  return answers.length;
+};
+
+const GetAnswersByQuestionIDPagination = async (req) => {
+  const answers = await prisma.answers.findMany({
+    skip: req.params.page * req.params.limit,
+    take: req.params.limit,
+    where: { qid: req.params.questionId },
+  });
+
+  return answers;
+};
+
+const GetAnswersAndVotings = async (answers, userId) => {
+  const answersAndvotings = [];
+  for (let i = 0; i < answers.length; i++) {
+    const upvotes = await prisma.voting.findMany({
+      where: { aid: answers[i].id, status: true },
+    });
+
+    const downvotes = await prisma.voting.findMany({
+      where: { aid: answers[i].id, status: false },
+    });
+
+    const user = await prisma.users.findUnique({
+      where: { id: answers[i].uid },
+    });
+    const voting = await prisma.voting.findFirst({
+      where: {
+        aid: answers[i].id,
+        uid: userId,
+      },
+    });
+    answersAndvotings.push({
+      answer: answers[i],
+      count_upvotes: upvotes.length,
+      count_downvotes: downvotes.length,
+      minus_upvote_downvote: upvotes.length - downvotes.length,
+      name: user.name,
+      profilepictureurl: user.profilepictureurl,
+      voting_status: voting ? voting.status : null,
+    });
+  }
+
+  return answersAndvotings;
+};
 module.exports = {
   createQuestion,
   deleteQuestionById,
@@ -204,4 +270,8 @@ module.exports = {
   searchQuestion,
   getLatestFeed,
   updateQuestion,
+  getQuestionByID,
+  countAnswerByQuestionID,
+  GetAnswersByQuestionIDPagination,
+  GetAnswersAndVotings,
 };
