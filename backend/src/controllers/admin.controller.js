@@ -12,7 +12,13 @@ const getMetrics = catchAsync(async (req, res) => {
   res.send(metrics);
 });
 
+const getUsers = catchAsync(async (req, res) => {
+  const result = await adminService.getUsers(req.params.page, req.params.limit);
+  res.send(result);
+});
+
 module.exports = {
   banUser,
   getMetrics,
+  getUsers,
 };
