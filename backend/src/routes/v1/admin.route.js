@@ -9,6 +9,8 @@ const router = express.Router();
 
 router.route('/metrics').get(auth('getMetrics'), adminController.getMetrics);
 
+router.route('/ban-user/:userId').post(auth('banUser'), validate(adminValidation.banUser), adminController.banUser);
+
 router.route('/list-users/:page/:limit').get(auth('getUsers'), validate(adminValidation.getUsers), adminController.getUsers);
 
 router.route('/list-configuration').get(auth('listConfigurations'), adminController.listConfigurations);
