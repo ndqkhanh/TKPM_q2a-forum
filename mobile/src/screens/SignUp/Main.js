@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Dimensions,
   Image,
@@ -11,69 +11,77 @@ import {
   Alert,
 } from "react-native";
 import { Colors } from "react-native-ui-lib";
+
 import Icon from "react-native-vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "@env";
 import { ScrollView } from "react-native-gesture-handler";
-import { UserContext } from "~provider/UserProvider";
 
-const ScreensSignInMain = ({ navigation }) => {
-  const onSignUp = () => {
-    navigation.navigate("signup_screen");
+const ScreensSignUpMain = ({ navigation }) => {
+  const onSignIn = () => {
+    navigation.navigate("login_screen");
   };
-  const { fetchUserInformation } = useContext(UserContext);
   const [username, setUsername] = useState(null);
+  const [name, setName] = useState(null);
   const [password, setPassword] = useState(null);
+  const [repassword, setRepassword] = useState(null);
+  const [picurl, setPicurl] = useState(null);
 
-  const fetchSignin = async (username, password) => {
-    try {
-      // alert(`${API_URL}/auth/signin`);
-      let responseLogin = await fetch(`${API_URL}/auth/signin`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer",
-        },
-        body: JSON.stringify({
-          username: `${username}`,
-          password: `${password}`,
-        }),
-      });
-      const mjson = await responseLogin.json();
-
-      if (mjson.hasOwnProperty("tokens")) {
-        await AsyncStorage.setItem(
-          "UserToken",
-          mjson["tokens"]["access"]["token"],
-        );
-        fetchUserInformation();
-        // navigation.navigate("Home");
-      } else {
-        Alert.alert("Invalid", mjson["message"]);
+  const fetchSignup = async (username, name, password, repassword, picurl) => {
+    if (password == repassword) {
+      try {
+        let responseNewUser = await fetch(`${API_URL}/auth/signup`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer ",
+          },
+          body: JSON.stringify({
+            username: `${username}`,
+            password: `${password}`,
+            name: `${name}`,
+            profilepictureurl: `${picurl}`,
+          }),
+        });
+        const mjson = await responseNewUser.json();
+        if (mjson.hasOwnProperty("tokens")) {
+          Alert.alert(
+            "Ancouncement",
+            "Your account has been successfully created.",
+          );
+          // await AsyncStorage.setItem(
+          //   "UserToken",
+          //   mjson["tokens"]["access"]["token"],
+          // );
+          navigation.navigate("login_screen");
+        } else {
+          Alert.alert("Invalid", mjson["message"]);
+        }
+      } catch (error) {
+        console.log("error", error);
+        Alert.alert("error", error);
       }
-    } catch (error) {
-      console.log("error", error);
-      Alert.alert("error", error.message);
+    } else {
+      Alert.alert("Invalid", "Two passwords are not the same.");
     }
   };
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.mainIntro}>
           <Image
-            source={require("~assets/img/login.gif")}
+            source={require("~assets/img/signUp.gif")}
             style={styles.imgIntro}
           />
           <Text style={styles.title}>Create better together.</Text>
           <Text style={styles.subTitle}>Join our community</Text>
         </View>
         <View style={styles.inputContainer}>
-          <Text style={styles.signInText}>Sign in</Text>
+          <Text style={styles.signInText}>Sign up</Text>
 
           <View style={styles.fieldContainer}>
-            <Icon name="person-outline" style={styles.fieldIcon} />
+            <Icon name="person-circle-outline" style={styles.fieldIcon} />
 
             <TextInput
               style={styles.fieldInput}
@@ -81,6 +89,17 @@ const ScreensSignInMain = ({ navigation }) => {
               onChangeText={setUsername}
             />
           </View>
+
+          <View style={styles.fieldContainer}>
+            <Icon name="person-outline" style={styles.fieldIcon} />
+
+            <TextInput
+              style={styles.fieldInput}
+              placeholder="Name"
+              onChangeText={setName}
+            />
+          </View>
+
           <View style={styles.fieldContainer}>
             <Icon name="lock-closed-outline" style={styles.fieldIcon} />
 
@@ -91,26 +110,48 @@ const ScreensSignInMain = ({ navigation }) => {
               secureTextEntry={true}
             />
           </View>
+          <View style={styles.fieldContainer}>
+            <Icon name="lock-closed-outline" style={styles.fieldIcon} />
+
+            <TextInput
+              style={styles.fieldInput}
+              placeholder="Re-enter Password"
+              onChangeText={setRepassword}
+              secureTextEntry={true}
+            />
+          </View>
+
+          <View style={styles.fieldContainer}>
+            <Icon name="image-outline" style={styles.fieldIcon} />
+
+            <TextInput
+              style={styles.fieldInput}
+              placeholder="Picture"
+              onChangeText={setPicurl}
+            />
+          </View>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => fetchSignin(username, password)}
+            onPress={() =>
+              fetchSignup(username, name, password, repassword, picurl)
+            }
           >
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Login</Text>
+              <Text style={styles.buttonText}>Register</Text>
             </View>
           </TouchableOpacity>
         </View>
         <View style={styles.signUpText}>
           <Text style={styles.newForum}>
-            New to Forum?{" "}
+            Joined us before?{" "}
             <Text
               style={{
                 color: Colors.blue40,
                 fontWeight: "bold",
               }}
-              onPress={onSignUp}
+              onPress={onSignIn}
             >
-              Sign Up
+              Login
             </Text>
           </Text>
         </View>
@@ -197,4 +238,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ScreensSignInMain;
+export default ScreensSignUpMain;

@@ -187,7 +187,7 @@ const ProfileScreen = ({ navigation, route }) => {
             </Text>
           </Card>
         </View>
-  
+
         <View style={styles.infoSection}>
           <TouchableOpacity style={{ flex: 1 }} onPress={personalInfoTab}>
             <Card

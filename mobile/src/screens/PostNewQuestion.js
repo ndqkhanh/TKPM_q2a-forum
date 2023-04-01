@@ -6,30 +6,73 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  TextInput,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { TextInput } from "react-native-gesture-handler";
 import {
   actions,
   RichEditor,
   RichToolbar,
 } from "react-native-pell-rich-editor";
-import {
-  controllPostAnswer,
-  controllUpdateQuestion,
-} from "~controller/controllAnswer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { controllUpdateQuestion } from "~controller/controllQuestion";
+import { is_empty } from "~utils/string";
 
-const PostAnswerScreen = ({ navigation, route }) => {
-  const initContent = route?.params?.Content?.split("&lt;").join("<") || "";
+const PostQuestionScreen = ({ navigation, route }) => {
+  const initTitle = route.params?.Title || '';
+  const initContent = route.params?.Content?.split("&lt;")?.join("<") || '';
   const richText = React.useRef();
+  const [title, setTitle] = React.useState(initTitle);
   const [content, setContent] = React.useState(initContent);
+  const postQuestion = async (passTitle, passContent) => {
+    if (is_empty(passTitle) || is_empty(passContent)) {
+      Alert.alert("Require", "Title and content must contain something!");
+    } else {
+      if (route.params?.update) {
+        await controllUpdateQuestion(route.params?.qid, passTitle, passContent);
+        navigation.goBack();
+      } else {
+        var question = {
+          Title: passTitle,
+          Content: passContent,
+        };
+        navigation.navigate("Your Feed", question);
+      }
+    }
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={styles.header}>Your answer</Text>
+        <TouchableOpacity onPress={() => navigation.pop()}>
+          <Icon
+            name="arrow-back-outline"
+            style={{
+              fontSize: 30,
+              color: Colors.cyan10,
+            }}
+          />
+        </TouchableOpacity>
+        <Text style={styles.header}>Post a question</Text>
       </View>
       <View style={styles.body}>
-        <Text style={styles.textTitle}>Content</Text>
+        <Text style={styles.textTitle}>Title</Text>
+        <Card style={styles.typingTitle}>
+          <TextInput
+            style={{ height: 45, paddingHorizontal: 10 }}
+            defaultValue={initTitle}
+            onChangeText={(tilteText) => setTitle(tilteText)}
+          />
+        </Card>
+        <Text
+          style={[
+            styles.textTitle,
+            {
+              marginTop: 30,
+            },
+          ]}
+        >
+          Content
+        </Text>
         <RichToolbar
           editor={richText}
           actions={[actions.setBold, actions.setItalic, actions.setUnderline]}
@@ -48,41 +91,35 @@ const PostAnswerScreen = ({ navigation, route }) => {
       </View>
       <View style={styles.button}>
         <TouchableOpacity
-          style={{ backgroundColor: Colors.red30, borderRadius: 20, width: 85 }}
+          style={{
+            backgroundColor: Colors.red30,
+            borderRadius: 5,
+            paddingHorizontal: 20,
+          }}
           activeOpacity={0.7}
           onPress={() => {
             navigation.goBack();
           }}
         >
-          <Text style={styles.submitText}>Back</Text>
+          <Text style={styles.submitText}>Cancel</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
             backgroundColor: Colors.blue40,
-            borderRadius: 20,
-            leftMargin: 20,
+            borderRadius: 5,
+            paddingHorizontal: 20,
           }}
           activeOpacity={0.7}
-          onPress={async() => {
-            if (content != null && content != "") {
-              if (route.params?.update) {
-                await controllUpdateQuestion(route.params?.aid, content);
-                navigation.goBack();
-              } else {
-                await controllPostAnswer(content, route.params?.qid);
-                navigation.goBack();
-              }
-            }
-          }}
+          onPress={() => postQuestion(title, content)}
         >
-          <Text style={styles.submitText}>Answer</Text>
+          <Text style={styles.submitText}>Submit</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 };
 
-export default PostAnswerScreen;
+export default PostQuestionScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -99,6 +136,7 @@ const styles = StyleSheet.create({
     //justifyContent: "center",
     //marginHorizontal: 20,
     padding: 10,
+    paddingHorizontal: 20,
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -114,8 +152,8 @@ const styles = StyleSheet.create({
   textTitle: {
     fontSize: 20,
     fontWeight: "bold",
+    marginLeft: 10,
     color: Colors.black,
-    marginTop: 10,
   },
   typingTitle: {
     marginLeft: 10,
@@ -126,10 +164,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginTop: 10,
     width: "95%",
-    height: "70%",
+    height: "50%",
   },
   button: {
-    justifyContent: "flex-end",
     flexDirection: "row",
     justifyContent: "space-evenly",
   },
@@ -138,6 +175,5 @@ const styles = StyleSheet.create({
     margin: 7,
     color: "white",
     fontWeight: "bold",
-    alignSelf: "center",
   },
 });
