@@ -1,3 +1,13 @@
+/*f
+f
+f
+f
+f
+f
+f
+f
+f
+f*/
 import React from "react";
 import { View, Text, Card, Colors } from "react-native-ui-lib";
 import {
