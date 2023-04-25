@@ -43,7 +43,7 @@ model questions {
 model users {
   id                String      @id(map: "user_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   username          String      @unique(map: "users_un") @db.VarChar
-  password          String
+  password          Bytes
   profilepictureurl String?
   role              Int?        @default(2) @db.SmallInt
   name              String?

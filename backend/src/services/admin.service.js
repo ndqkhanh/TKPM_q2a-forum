@@ -1,8 +1,11 @@
 const httpStatus = require('http-status');
-const { PrismaClient, Prisma } = require('@prisma/client');
-const prisma = new PrismaClient();
+// const { PrismaClient, Prisma } = require('@prisma/client');
+// const prisma = new PrismaClient();
+const Database = require('../utils/database');
 const ApiError = require('../utils/ApiError');
 const userService = require('./user.service');
+
+const prisma = new Database().getInstance();
 
 const getAllMetrics = async () => {
   const questionCount = await prisma.questions.count();

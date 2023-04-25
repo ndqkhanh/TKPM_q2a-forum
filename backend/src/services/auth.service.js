@@ -17,7 +17,7 @@ const loginUserWithUsernameAndPassword = async (username, password) => {
   // if (!user || !(await user.isPasswordMatch(password))) {
   //   throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
   // }
-  if (!user || !(await bcrypt.compare(password, user.password))) {
+  if (!user || !(await bcrypt.compare(password, user.password.toString()))) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect username or password');
   }
   if (user && user.disabled === true) {
