@@ -1,8 +1,12 @@
 const httpStatus = require('http-status');
 const bcrypt = require('bcrypt');
 const { User } = require('../models');
-const { PrismaClient, Prisma } = require('@prisma/client');
-const prisma = new PrismaClient();
+// const { PrismaClient, Prisma } = require('@prisma/client');
+// const prisma = new PrismaClient();
+
+const Database = require('../utils/database');
+
+const prisma = new Database().getInstance();
 
 const ApiError = require('../utils/ApiError');
 
@@ -14,6 +18,7 @@ const ApiError = require('../utils/ApiError');
 const createUser = async (userBody) => {
   const saltRounds = 10;
 
+  // eslint-disable-next-line no-param-reassign
   userBody.password = await bcrypt.hash(userBody.password, saltRounds);
 
   const checkUsername = await prisma.users.findUnique({

@@ -1,7 +1,9 @@
-const { PrismaClient, Prisma } = require('@prisma/client');
+// const { PrismaClient, Prisma } = require('@prisma/client');
 const httpStatus = require('http-status');
+const Database = require('../utils/database');
 const ApiError = require('../utils/ApiError');
-const prisma = new PrismaClient();
+
+const prisma = new Database().getInstance();
 
 const VoteAnswer = async (req) => {
   const answer = await prisma.answers.findUnique({
