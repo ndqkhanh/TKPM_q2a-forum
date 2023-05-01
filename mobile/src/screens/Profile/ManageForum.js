@@ -16,14 +16,14 @@ import PendingQuestion from "~components/Common/PendingQuestionList";
 import User from "~components/Common/UserList";
 import { formatDistance } from "date-fns";
 import {
-  approveDeclineQuestion,
-  getListConfigurations,
-  getMetrics,
-  getPendingQuestions,
-  getUsers,
-  updateConfiguration,
-  banUser,
-} from "~services/admin";
+  approveDeclineQuestionController,
+  getListConfigurationsController,
+  getMetricsController,
+  getPendingQuestionsController,
+  getUsersController,
+  updateConfigurationController,
+  banUserController,
+} from "~controller/admin";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { is_empty } from "~utils/string";
 import { ConfigContext } from "~provider/ConfigProvider";
@@ -69,7 +69,7 @@ const ManageForumScreen = ({ navigation }) => {
 
   const fetchMetricsInformation = async () => {
     let token = await AsyncStorage.getItem("UserToken");
-    const metricsData = await getMetrics(token);
+    const metricsData = await getMetricsController(token);
     setNumOfQuestions(metricsData.numOfQuestions);
     setNumOfUsers(metricsData.numOfUsers);
     setNumOfAnswers(metricsData.numOfAnswers);
@@ -81,7 +81,7 @@ const ManageForumScreen = ({ navigation }) => {
   const [configuration, setConfiguration] = useState({});
   const fetchConfigurations = async () => {
     let token = await AsyncStorage.getItem("UserToken");
-    const data = await getListConfigurations(token);
+    const data = await getListConfigurationsController(token);
     let obj = {};
     data.forEach((config) => {
       obj[config.slug] = config.value;
@@ -93,7 +93,7 @@ const ManageForumScreen = ({ navigation }) => {
   };
   const fetchPendingQuestions = async (page, limit) => {
     let token = await AsyncStorage.getItem("UserToken");
-    const data = await getPendingQuestions(token, page, limit);
+    const data = await getPendingQuestionsController(token, page, limit);
     let maxLength = parseInt(data.count);
     setMaxPendingQuestionsLength(maxLength);
     let tmp = [...pendingQuestionsData, ...data.data];
@@ -108,7 +108,7 @@ const ManageForumScreen = ({ navigation }) => {
   const [usersData, setUsersData] = useState([]);
   const fetchUsers = async (page, limit) => {
     let token = await AsyncStorage.getItem("UserToken");
-    const data = await getUsers(token, page, limit);
+    const data = await getUsersController(token, page, limit);
     var maxLength = 5;
     try {
       maxLength = parseInt(data.count);
@@ -137,13 +137,13 @@ const ManageForumScreen = ({ navigation }) => {
     let token = await AsyncStorage.getItem("UserToken");
     let data;
     if (configuration.FORUM_NAME != configForumName) {
-      data = await updateConfiguration(token, "FORUM_NAME", configForumName);
+      data = await updateConfigurationController(token, "FORUM_NAME", configForumName);
     }
     if (data && !data.success) {
       Alert.alert("Update forum name in feed failure");
     }
     if (configuration.NUM_OF_QUESTIONS_IN_FEED != configNumOfQuestionInFeed) {
-      data = await updateConfiguration(
+      data = await updateConfigurationController(
         token,
         "NUM_OF_QUESTIONS_IN_FEED",
         configNumOfQuestionInFeed,
@@ -159,7 +159,7 @@ const ManageForumScreen = ({ navigation }) => {
 
   const fetchApproveDeclineQuestions = async (questionId, status) => {
     let token = await AsyncStorage.getItem("UserToken");
-    const data = await approveDeclineQuestion(token, questionId, status);
+    const data = await approveDeclineQuestionController(token, questionId, status);
     if (data.success === true) {
       if (status === 0) {
         Alert.alert("Question approved successfully");
@@ -177,7 +177,7 @@ const ManageForumScreen = ({ navigation }) => {
 
   const fetchBanUser = async (userId, status) => {
     let token = await AsyncStorage.getItem("UserToken");
-    const data = await banUser(token, userId, status);
+    const data = await banUserController(token, userId, status);
     if (data.success === true) {
       if (status === false) {
         Alert.alert("User is unbanned successfully");

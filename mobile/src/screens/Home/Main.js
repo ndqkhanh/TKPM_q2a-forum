@@ -17,7 +17,7 @@ import HomeMainPosting from "~components/Home/Main/Posting";
 import { controllPostQuestion } from "~controller/controllQuestion";
 import { ConfigContext } from "~provider/ConfigProvider";
 import { UserContext } from "~provider/UserProvider";
-import { getFeed } from "~services/feed";
+import { getFeedController } from "~controller/feed";
 const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
     const paddingToBottom = 100;
     return (
@@ -36,7 +36,7 @@ const ScreensHomeMain = ({ navigation, route }) => {
     const [refetch, setRefetch] = useState(false);
     const fetchFeedInformation = async (page) => {
         let token = await AsyncStorage.getItem("UserToken");
-        const data = await getFeed(token, page);
+        const data = await getFeedController(token, page);
         var maxLength = 5;
         try {
             maxLength = parseInt(data.count);

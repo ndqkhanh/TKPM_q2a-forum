@@ -28,7 +28,6 @@ const deleteAnswer = {
   }),
 };
 
-
 module.exports = {
   newAnswer,
   updateAnswer,
