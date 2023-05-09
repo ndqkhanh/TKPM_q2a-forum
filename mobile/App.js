@@ -90,7 +90,7 @@ const BottomTabNavigator = ({ navigation }) => {
                 alignItems: "center",
               }}
             >
-              <TabBarIcon name="add-circle" size={40} color = {Colors.blue10}/>
+              <TabBarIcon name="add-circle" size={40} color={Colors.blue10} />
             </TouchableOpacity>
           ),
         }}

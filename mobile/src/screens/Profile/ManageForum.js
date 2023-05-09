@@ -27,6 +27,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { is_empty } from "~utils/string";
 import { ConfigContext } from "~provider/ConfigProvider";
+import { wrap } from "cheerio/lib/api/manipulation";
 
 const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
   const paddingToBottom = 280;
@@ -137,7 +138,11 @@ const ManageForumScreen = ({ navigation }) => {
     let token = await AsyncStorage.getItem("UserToken");
     let data;
     if (configuration.FORUM_NAME != configForumName) {
-      data = await updateConfigurationController(token, "FORUM_NAME", configForumName);
+      data = await updateConfigurationController(
+        token,
+        "FORUM_NAME",
+        configForumName,
+      );
     }
     if (data && !data.success) {
       Alert.alert("Update forum name in feed failure");
@@ -159,7 +164,11 @@ const ManageForumScreen = ({ navigation }) => {
 
   const fetchApproveDeclineQuestions = async (questionId, status) => {
     let token = await AsyncStorage.getItem("UserToken");
-    const data = await approveDeclineQuestionController(token, questionId, status);
+    const data = await approveDeclineQuestionController(
+      token,
+      questionId,
+      status,
+    );
     if (data.success === true) {
       if (status === 0) {
         Alert.alert("Question approved successfully");

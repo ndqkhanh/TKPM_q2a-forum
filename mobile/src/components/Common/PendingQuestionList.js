@@ -102,10 +102,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderTopColor: Colors.blue80,
     borderTopWidth: 2,
-    marginHorizontal: 8,
-    marginTop: 5,
+    marginTop: 0,
     alignItems: "center",
-    marginBottom: 20,
   },
   verifyCard: {
     flexDirection: "row",

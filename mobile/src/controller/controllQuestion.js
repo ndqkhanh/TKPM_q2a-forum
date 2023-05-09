@@ -3,6 +3,7 @@ import {
   postQuestion,
   searchQuestion,
   updateQuestion,
+  getFeed,
 } from "~services/Question";
 const controllPostQuestion = async (passTitle, passContent) => {
   try {
@@ -43,8 +44,14 @@ const controllUpdateQuestion = async (qid, title, content) => {
   }
 };
 
+const getFeedController = async (token, page) => {
+    const data = await getFeed(token, page);
+    return data;
+}
+
 export {
   controllPostQuestion,
   controllsSearchQuestion,
   controllUpdateQuestion,
+  getFeedController,
 };

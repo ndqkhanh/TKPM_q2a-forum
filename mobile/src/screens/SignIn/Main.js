@@ -28,6 +28,7 @@ const ScreensSignInMain = ({ navigation }) => {
   const fetchSignin = async (username, password) => {
     try {
       // alert(`${API_URL}/auth/signin`);
+      console.log(`${API_URL}/auth/signin`);
       let responseLogin = await fetch(`${API_URL}/auth/signin`, {
         method: "POST",
         headers: {
@@ -48,7 +49,7 @@ const ScreensSignInMain = ({ navigation }) => {
           mjson["tokens"]["access"]["token"],
         );
         fetchUserInformation();
-        // navigation.navigate("Home");
+        navigation.navigate("Home");
       } else {
         Alert.alert("Invalid", mjson["message"]);
       }

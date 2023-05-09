@@ -136,4 +136,22 @@ const updateQuestion = async (qid, passTitle, passContent) => {
     }
     return message;
 };
-export { postQuestion, searchQuestion, deleteQuestion, updateQuestion };
+
+const getFeed = async (token, page) => {
+  try {
+    let data = await fetch(`${API_URL}/question/feed/${page}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    data = await data.json();
+    return data;
+  } catch (error) {
+    console.error("error---", error);
+  }
+  return null;
+};
+export { postQuestion, searchQuestion, deleteQuestion, updateQuestion, getFeed };
