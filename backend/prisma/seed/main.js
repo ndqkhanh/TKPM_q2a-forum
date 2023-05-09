@@ -2,9 +2,9 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable camelcase */
 /* eslint-disable no-console */
-import { pointList, wardList, districtList, streetList, blogList } from '../../data/index.js';
 
 import { PrismaClient } from '@prisma/client';
+// eslint-disable-next-line import/no-unresolved
 import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
