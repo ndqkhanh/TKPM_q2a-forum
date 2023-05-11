@@ -6,7 +6,7 @@ const { User } = require('../models');
 
 const Database = require('../utils/database');
 
-const prisma = new Database().getInstance();
+const prisma = Database().getInstance();
 
 const ApiError = require('../utils/ApiError');
 

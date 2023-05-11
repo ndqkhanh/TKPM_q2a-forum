@@ -1,8 +1,9 @@
 // const { PrismaClient, Prisma } = require('@prisma/client');
-const Database = require('../utils/database');
 const httpStatus = require('http-status');
+const Database = require('../utils/database');
 const ApiError = require('../utils/ApiError');
-const prisma = new Database().getInstance();
+
+const prisma = Database().getInstance();
 
 const createQuestion = async (req) => {
   const userId = req.user.id;
