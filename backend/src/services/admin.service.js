@@ -5,7 +5,7 @@ const Database = require('../utils/database');
 const ApiError = require('../utils/ApiError');
 const userService = require('./user.service');
 
-const prisma = Database().getInstance();
+const prisma = new Database().getInstance();
 
 const getAllMetrics = async () => {
   const questionCount = await prisma.questions.count();

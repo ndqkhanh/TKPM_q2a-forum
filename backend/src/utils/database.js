@@ -9,7 +9,7 @@ class Database {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  static getInstance() {
+  getInstance() {
     return Database.instance;
   }
 }

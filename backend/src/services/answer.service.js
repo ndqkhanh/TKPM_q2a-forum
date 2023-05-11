@@ -4,7 +4,7 @@ const httpStatus = require('http-status');
 const Database = require('../utils/database');
 const ApiError = require('../utils/ApiError');
 
-const prisma = Database().getInstance();
+const prisma = new Database().getInstance();
 
 const createAnswer = async (req) => {
   const checkQuestionExists = await prisma.questions.findUnique({

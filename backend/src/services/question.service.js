@@ -3,7 +3,7 @@ const httpStatus = require('http-status');
 const Database = require('../utils/database');
 const ApiError = require('../utils/ApiError');
 
-const prisma = Database().getInstance();
+const prisma = new Database().getInstance();
 
 const createQuestion = async (req) => {
   const userId = req.user.id;

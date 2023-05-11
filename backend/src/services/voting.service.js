@@ -3,7 +3,7 @@ const httpStatus = require('http-status');
 const Database = require('../utils/database');
 const ApiError = require('../utils/ApiError');
 
-const prisma = Database().getInstance();
+const prisma = new Database().getInstance();
 
 const VoteAnswer = async (req) => {
   const answer = await prisma.answers.findUnique({
