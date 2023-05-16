@@ -333,16 +333,16 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginHorizontal: 20,
+    marginHorizontal: 15,
     marginVertical: 5,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     position: "relative",
   },
   header: {
     fontSize: 20,
     fontWeight: "bold",
     color: Colors.blue40,
-    maxWidth: "80%", // Adjust the maximum width as needed
+    marginStart: 40,
   },
   body: {
     flex: 1,

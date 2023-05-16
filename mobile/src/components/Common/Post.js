@@ -47,7 +47,7 @@ const Post = ({
       underlayColor={Colors.cyan50}
       style={styles.postContainer}
     >
-      <>
+      <View>
         {typeof voting == "number" && (
           <View style={styles.votingContainer}>
             <TouchableOpacity
@@ -228,13 +228,14 @@ const Post = ({
             )}
           </View>
         )}
-      </>
+      </View>
     </TouchableHighlight>
   );
 };
 const styles = StyleSheet.create({
   postContainer: {
     backgroundColor: Colors.white,
+    borderRadius: 10,
     marginTop: 20,
   },
   votingContainer: {
