@@ -20,6 +20,8 @@ const createUser = async (userBody) => {
 
   // eslint-disable-next-line no-param-reassign
   userBody.password = await bcrypt.hash(userBody.password, saltRounds);
+  // eslint-disable-next-line no-param-reassign
+  userBody.password = Buffer.from(userBody.password);
 
   const checkUsername = await prisma.users.findUnique({
     where: {

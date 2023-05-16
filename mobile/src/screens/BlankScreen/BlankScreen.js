@@ -13,7 +13,7 @@ const BlankScreen = ({ navigation }) => {
   }, []);
   const getStorageToken = async () => {
     try {
-      storageToken = await AsyncStorage.getItem("UserToken");
+      let storageToken = await AsyncStorage.getItem("UserToken");
       let responseCheckToken = await fetch(`${API_URL}/user`, {
         method: "GET",
         headers: {

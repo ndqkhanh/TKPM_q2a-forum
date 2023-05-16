@@ -17,7 +17,7 @@ const Post = ({
   questionStatus,
   content,
   title,
-  userData,// = { name: "", avatarUrl: "" },
+  userData, // = { name: "", avatarUrl: "" },
   dateText,
   image,
   numOfAnswers,
@@ -79,18 +79,16 @@ const Post = ({
           </View>
         )}
         {/* pending card notification */}
-        {questionStatus == 0 ?
-        <Card style={styles.verifyCard}>
-          <Text style={styles.questionStatus}>Pending</Text>
-        </Card>
-        : null}
+        {questionStatus == 0 ? (
+          <Card style={styles.verifyCard}>
+            <Text style={styles.questionStatus}>Pending</Text>
+          </Card>
+        ) : null}
 
         <View style={styles.postContentContainer}>
           <View style={styles.infoUserContainer}>
             {userData.avatarUrl && userData.avatarUrl.indexOf("http") >= 0 && (
-              <TouchableOpacity
-                onPress={goProfile}  
-              >
+              <TouchableOpacity onPress={goProfile}>
                 <Image
                   source={{
                     uri: userData.avatarUrl,
@@ -141,11 +139,7 @@ const Post = ({
           >
             {title && <Text style={styles.questionTitle}>{title}</Text>}
 
-            {content && (
-              <Text style={styles.questionContent}>
-                {<RenderHtml contentWidth={width} source={source} />}
-              </Text>
-            )}
+            {content && <RenderHtml contentWidth={width} source={source} />}
 
             {image && (
               <Image

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Dimensions,
   Image,
@@ -16,8 +16,10 @@ import Icon from "react-native-vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "@env";
 import { ScrollView } from "react-native-gesture-handler";
+import { UserContext } from "~provider/UserProvider";
 
 const ScreensSignUpMain = ({ navigation }) => {
+  const { fetchUserInformation } = useContext(UserContext);
   const onSignIn = () => {
     navigation.navigate("login_screen");
   };
@@ -25,7 +27,9 @@ const ScreensSignUpMain = ({ navigation }) => {
   const [name, setName] = useState(null);
   const [password, setPassword] = useState(null);
   const [repassword, setRepassword] = useState(null);
-  const [picurl, setPicurl] = useState(null);
+  const [picurl, setPicurl] = useState(
+    "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png",
+  );
 
   const fetchSignup = async (username, name, password, repassword, picurl) => {
     if (password == repassword) {
@@ -50,10 +54,11 @@ const ScreensSignUpMain = ({ navigation }) => {
             "Ancouncement",
             "Your account has been successfully created.",
           );
-          // await AsyncStorage.setItem(
-          //   "UserToken",
-          //   mjson["tokens"]["access"]["token"],
-          // );
+          await AsyncStorage.setItem(
+            "UserToken",
+            mjson["tokens"]["access"]["token"],
+          );
+          fetchUserInformation();
           navigation.navigate("login_screen");
         } else {
           Alert.alert("Invalid", mjson["message"]);
@@ -121,7 +126,7 @@ const ScreensSignUpMain = ({ navigation }) => {
             />
           </View>
 
-          <View style={styles.fieldContainer}>
+          {/* <View style={styles.fieldContainer}>
             <Icon name="image-outline" style={styles.fieldIcon} />
 
             <TextInput
@@ -129,7 +134,7 @@ const ScreensSignUpMain = ({ navigation }) => {
               placeholder="Picture"
               onChangeText={setPicurl}
             />
-          </View>
+          </View> */}
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() =>

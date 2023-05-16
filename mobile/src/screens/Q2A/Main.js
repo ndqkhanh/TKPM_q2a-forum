@@ -321,19 +321,28 @@ const ScreensQ2AMain = ({ navigation, route }) => {
   );
 };
 const styles = StyleSheet.create({
+  // headerContainer: {
+  //   height: 50,
+  //   backgroundColor: Colors.white,
+  //   justifyContent: "center",
+  //   marginHorizontal: 20,
+  //   alignItems: "center",
+  //   flexDirection: "row",
+  //   // justifyContent: "space-between",
+  // },
   headerContainer: {
-    height: 50,
-    backgroundColor: Colors.white,
-    justifyContent: "center",
-    marginHorizontal: 20,
+    flexDirection: "row",
     alignItems: "center",
-    // flexDirection: "row",
-    // justifyContent: "space-between",
+    marginHorizontal: 20,
+    marginVertical: 5,
+    justifyContent: "center",
+    position: "relative",
   },
   header: {
     fontSize: 20,
     fontWeight: "bold",
     color: Colors.blue40,
+    maxWidth: "80%", // Adjust the maximum width as needed
   },
   body: {
     flex: 1,
