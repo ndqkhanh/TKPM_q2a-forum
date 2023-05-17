@@ -1,13 +1,3 @@
-/*f
-f
-f
-f
-f
-f
-f
-f
-f
-f*/
 import React from "react";
 import { View, Text, Card, Colors } from "react-native-ui-lib";
 import {
@@ -29,8 +19,8 @@ import { controllUpdateQuestion } from "~controller/controllQuestion";
 import { is_empty } from "~utils/string";
 
 const PostQuestionScreen = ({ navigation, route }) => {
-  const initTitle = route.params?.Title || '';
-  const initContent = route.params?.Content?.split("&lt;")?.join("<") || '';
+  const initTitle = route.params?.Title || "";
+  const initContent = route.params?.Content?.split("&lt;")?.join("<") || "";
   const richText = React.useRef();
   const [title, setTitle] = React.useState(initTitle);
   const [content, setContent] = React.useState(initContent);
@@ -50,6 +40,8 @@ const PostQuestionScreen = ({ navigation, route }) => {
       }
     }
   };
+  // console.log("route.params", JSON.stringify(route.params));
+  // return <></>;
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -83,10 +75,6 @@ const PostQuestionScreen = ({ navigation, route }) => {
         >
           Content
         </Text>
-        <RichToolbar
-          editor={richText}
-          actions={[actions.setBold, actions.setItalic, actions.setUnderline]}
-        />
         <Card style={styles.typingContent}>
           <RichEditor
             useContainer={false}
@@ -94,10 +82,14 @@ const PostQuestionScreen = ({ navigation, route }) => {
             initialContentHTML={initContent}
             onChange={(descriptionText) => {
               setContent(descriptionText);
-              //console.log("descriptionText:", descriptionText);
+              // console.log("descriptionText:", descriptionText);
             }}
           />
         </Card>
+        <RichToolbar
+          editor={richText}
+          actions={[actions.setBold, actions.setItalic, actions.setUnderline]}
+        />
       </View>
       <View style={styles.button}>
         <TouchableOpacity
@@ -135,10 +127,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginBottom: 120,
-  },
-  body: {
-    marginLeft: 10,
-    marginRight: 10,
   },
   headerContainer: {
     height: 50,

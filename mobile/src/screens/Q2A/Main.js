@@ -186,7 +186,7 @@ const ScreensQ2AMain = ({ navigation, route }) => {
     };
   }, []);
 
-  if (!question || !userData) return null;
+  if (!question || !userData) return <></>;
 
   return (
     <SafeAreaView
