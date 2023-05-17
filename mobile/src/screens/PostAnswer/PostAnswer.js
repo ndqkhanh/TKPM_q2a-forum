@@ -30,10 +30,7 @@ const PostAnswerScreen = ({ navigation, route }) => {
       </View>
       <View style={styles.body}>
         <Text style={styles.textTitle}>Content</Text>
-        <RichToolbar
-          editor={richText}
-          actions={[actions.setBold, actions.setItalic, actions.setUnderline]}
-        />
+
         <Card style={styles.typingContent}>
           <RichEditor
             useContainer={false}
@@ -45,6 +42,10 @@ const PostAnswerScreen = ({ navigation, route }) => {
             }}
           />
         </Card>
+        <RichToolbar
+          editor={richText}
+          actions={[actions.setBold, actions.setItalic, actions.setUnderline]}
+        />
       </View>
       <View style={styles.button}>
         <TouchableOpacity
@@ -63,7 +64,7 @@ const PostAnswerScreen = ({ navigation, route }) => {
             leftMargin: 20,
           }}
           activeOpacity={0.7}
-          onPress={async() => {
+          onPress={async () => {
             if (content != null && content != "") {
               if (route.params?.update) {
                 await controllUpdateQuestion(route.params?.aid, content);
