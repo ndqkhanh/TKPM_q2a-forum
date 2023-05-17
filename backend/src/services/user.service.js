@@ -126,9 +126,6 @@ const getMyQuestionsPagination = async (req) => {
     },
     orderBy: [
       {
-        status: 'asc',
-      },
-      {
         updated_at: 'desc',
       },
     ],

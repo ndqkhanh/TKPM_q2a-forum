@@ -341,7 +341,7 @@ const ProfileScreen = ({ navigation, route }) => {
                   }}
                 />
               </View>
-              <View
+              {/* <View
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
@@ -372,7 +372,7 @@ const ProfileScreen = ({ navigation, route }) => {
                     fontSize: 16,
                   }}
                 />
-              </View>
+              </View> */}
 
               <TouchableOpacity
                 style={{

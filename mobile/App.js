@@ -26,7 +26,15 @@ import SearchScreen from "~screens/Search/Search";
 import ScreensSignInMain from "~screens/SignIn/Main";
 import ScreensSignUpMain from "~screens/SignUp/Main";
 
-LogBox.ignoreLogs(["the action 'NAVIGATE' with payload"]); // ignore warning
+LogBox.ignoreLogs([
+  `The action 'NAVIGATE' with payload {"name":"Home"} was not handled by any navigator.
+
+Do you have a screen named 'Home'?
+
+If you're trying to navigate to a screen in a nested navigator, see https://reactnavigation.org/docs/nesting-navigators#navigating-to-a-screen-in-a-nested-navigator.
+
+This is a development-only warning and won't be shown in production.`,
+]); // ignore warning
 
 if (Text.defaultProps == null) {
   Text.defaultProps = {};

@@ -9,7 +9,9 @@ const prisma = new Database().getInstance();
 
 const getAllMetrics = async () => {
   const questionCount = await prisma.questions.count();
-  const userCount = await prisma.users.count();
+  const userCount = await prisma.users.count({
+    where: { role: 2 },
+  });
   const answerCount = await prisma.answers.count();
   return { numOfQuestions: questionCount, numOfUsers: userCount, numOfAnswers: answerCount };
 };
@@ -109,6 +111,10 @@ const getUsers = async (page, limit) => {
   const listUsers = await prisma.users.findMany({
     skip: page * limit,
     take: limit,
+    // role: 0 = admin, 1 = moderator, 2 = user
+    where: {
+      role: 2,
+    },
     select: {
       id: true,
       username: true,
