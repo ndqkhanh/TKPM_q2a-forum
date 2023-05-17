@@ -10,6 +10,7 @@ import {
   TouchableHighlight,
   View,
   TouchableOpacity,
+  ToastAndroid,
 } from "react-native";
 import { Colors } from "react-native-ui-lib";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -289,7 +290,10 @@ const ScreensQ2AMain = ({ navigation, route }) => {
                     } else {
                       fetchPickACorrectAnswer(item.answer.id, false);
                     }
-                    Alert.alert("Success");
+                    ToastAndroid.show(
+                      "Picked successfully",
+                      ToastAndroid.SHORT,
+                    );
                   }
                 : null
             }

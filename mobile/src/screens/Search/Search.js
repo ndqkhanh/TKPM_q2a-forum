@@ -124,7 +124,6 @@ const SearchScreen = ({ navigation }) => {
                   avatarUrl: record.userData.profilepictureurl,
                 }}
                 onPressQ2A={() => {
-                  console.log("navigate to Q2A");
                   navigation.navigate("Q2A", {
                     questionId: record.questionData.id,
                   });

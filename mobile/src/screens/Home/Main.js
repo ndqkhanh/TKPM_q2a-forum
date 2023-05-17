@@ -222,7 +222,6 @@ const ScreensHomeMain = ({ navigation, route }) => {
             }}
             correctAnswer={record.correctAnswerExists}
             onPressQ2A={() => {
-              console.log("navigate to Q2A");
               navigation.navigate("Q2A", { questionId: record.id });
             }}
             onPressAnswer={() => {
