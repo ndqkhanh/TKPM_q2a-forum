@@ -245,17 +245,7 @@ const ScreensQ2AMain = ({ navigation, route }) => {
               : null
           }
         />
-        <TouchableOpacity
-          style={styles.newAnswer}
-          activeOpacity={0.8}
-          onPress={() => {
-            navigation.navigate("Post answer", { qid: questionId });
-          }}
-        >
-          <View style={styles.btnPage}>
-            <Text style={styles.btnTextPage}>Write answer</Text>
-          </View>
-        </TouchableOpacity>
+        
         <View style={styles.answerContainer}>
           <Text style={styles.numOfAnswers}>{countAnswer} answers</Text>
         </View>
@@ -321,6 +311,19 @@ const ScreensQ2AMain = ({ navigation, route }) => {
           />
         ))}
       </ScrollView>
+      <View style = {{backgroundColor: Colors.cyan70}}>
+      <TouchableOpacity
+          style={styles.newAnswer}
+          activeOpacity={0.8}
+          onPress={() => {
+            navigation.navigate("Post answer", { qid: questionId });
+          }}
+        >
+          <View style={styles.btnPage}>
+            <Text style={styles.btnTextPage}>Write answer</Text>
+          </View>
+        </TouchableOpacity>
+        </View>
     </SafeAreaView>
   );
 };
@@ -384,7 +387,8 @@ const styles = StyleSheet.create({
   },
   newAnswer: {
     alignSelf: "center",
-    marginTop: 20,
+    marginTop: 10,
+    marginBottom: 10,
   },
 });
 export default ScreensQ2AMain;
