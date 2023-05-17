@@ -127,6 +127,14 @@ const getMyQuestionsPagination = async (req) => {
     where: {
       uid: req.user.id,
     },
+    orderBy: [
+      {
+        status: 'asc',
+      },
+      {
+        updated_at: 'desc',
+      },
+    ],
   });
 
   return questions;
