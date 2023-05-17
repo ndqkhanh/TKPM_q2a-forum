@@ -44,7 +44,12 @@ const PostAnswerScreen = ({ navigation, route }) => {
         </Card>
         <RichToolbar
           editor={richText}
-          actions={[actions.setBold, actions.setItalic, actions.setUnderline]}
+          actions={[
+            actions.setBold,
+            actions.setItalic,
+            actions.setUnderline,
+            actions.removeFormat,
+          ]}
         />
       </View>
       <View style={styles.button}>

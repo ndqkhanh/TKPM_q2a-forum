@@ -26,6 +26,8 @@ import SearchScreen from "~screens/Search/Search";
 import ScreensSignInMain from "~screens/SignIn/Main";
 import ScreensSignUpMain from "~screens/SignUp/Main";
 
+LogBox.ignoreLogs(["the action 'NAVIGATE' with payload"]); // ignore warning
+
 if (Text.defaultProps == null) {
   Text.defaultProps = {};
   Text.defaultProps.allowFontScaling = false;

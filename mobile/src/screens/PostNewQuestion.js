@@ -41,6 +41,8 @@ const PostQuestionScreen = ({ navigation, route }) => {
     }
   };
   // console.log("route.params", JSON.stringify(route.params));
+  // console.log("initContent", initContent);
+  // console.log("initTitle", initTitle);
   // return <></>;
   return (
     <SafeAreaView style={styles.container}>
@@ -75,6 +77,7 @@ const PostQuestionScreen = ({ navigation, route }) => {
         >
           Content
         </Text>
+
         <Card style={styles.typingContent}>
           <RichEditor
             useContainer={false}
@@ -88,7 +91,12 @@ const PostQuestionScreen = ({ navigation, route }) => {
         </Card>
         <RichToolbar
           editor={richText}
-          actions={[actions.setBold, actions.setItalic, actions.setUnderline]}
+          actions={[
+            actions.setBold,
+            actions.setItalic,
+            actions.setUnderline,
+            actions.removeFormat,
+          ]}
         />
       </View>
       <View style={styles.button}>
