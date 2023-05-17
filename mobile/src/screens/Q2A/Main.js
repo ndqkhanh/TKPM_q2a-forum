@@ -245,7 +245,7 @@ const ScreensQ2AMain = ({ navigation, route }) => {
               : null
           }
         />
-        
+
         <View style={styles.answerContainer}>
           <Text style={styles.numOfAnswers}>{countAnswer} answers</Text>
         </View>
@@ -311,8 +311,8 @@ const ScreensQ2AMain = ({ navigation, route }) => {
           />
         ))}
       </ScrollView>
-      <View style = {{backgroundColor: Colors.cyan70}}>
-      <TouchableOpacity
+      <View style={{ backgroundColor: Colors.cyan70 }}>
+        <TouchableOpacity
           style={styles.newAnswer}
           activeOpacity={0.8}
           onPress={() => {
@@ -323,7 +323,7 @@ const ScreensQ2AMain = ({ navigation, route }) => {
             <Text style={styles.btnTextPage}>Write answer</Text>
           </View>
         </TouchableOpacity>
-        </View>
+      </View>
     </SafeAreaView>
   );
 };

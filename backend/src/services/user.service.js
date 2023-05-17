@@ -119,9 +119,6 @@ const countMyQuestions = async (req) => {
 
 const getMyQuestionsPagination = async (req) => {
   const questions = await prisma.questions.findMany({
-    orderBy: {
-        updated_at: 'desc',
-    },
     skip: req.params.page * req.params.limit,
     take: req.params.limit,
     where: {
