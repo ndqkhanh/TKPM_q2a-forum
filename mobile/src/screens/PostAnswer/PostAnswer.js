@@ -90,10 +90,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 120,
   },
-  body: {
-    marginLeft: 10,
-    marginRight: 10,
-  },
   headerContainer: {
     height: 50,
     backgroundColor: Colors.white,
@@ -130,7 +126,7 @@ const styles = StyleSheet.create({
     height: "70%",
   },
   button: {
-    justifyContent: "flex-end",
+    // justifyContent: "flex-end",
     flexDirection: "row",
     justifyContent: "space-evenly",
   },
