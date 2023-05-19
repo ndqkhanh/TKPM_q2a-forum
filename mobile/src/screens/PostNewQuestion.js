@@ -77,15 +77,7 @@ const PostQuestionScreen = ({ navigation, route }) => {
         >
           Content
         </Text>
-        <RichToolbar
-          editor={richText}
-          actions={[
-            actions.setBold,
-            actions.setItalic,
-            actions.setUnderline,
-            actions.removeFormat,
-          ]}
-        />
+
         <Card style={styles.typingContent}>
           <RichEditor
             useContainer={false}
@@ -97,6 +89,15 @@ const PostQuestionScreen = ({ navigation, route }) => {
             }}
           />
         </Card>
+        <RichToolbar
+          editor={richText}
+          actions={[
+            actions.setBold,
+            actions.setItalic,
+            actions.setUnderline,
+            actions.removeFormat,
+          ]}
+        />
       </View>
       <View style={styles.button}>
         <TouchableOpacity
