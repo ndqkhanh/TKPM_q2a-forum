@@ -193,7 +193,7 @@ const ScreensHomeMain = ({ navigation, route }) => {
                     color: Colors.cyan20,
                   }}
                 >
-                  Admin
+                  {(userData.role == 1)? "Moderator": "Admin"}
                 </Text>
               </>
             </TouchableHighlight>

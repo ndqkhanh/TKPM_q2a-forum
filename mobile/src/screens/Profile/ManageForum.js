@@ -300,29 +300,29 @@ const ManageForumScreen = ({ navigation }) => {
           </Card>
         </View>
         <View style={styles.infoSection}>
-          <TouchableOpacity onPress={questionsPressed}>
+          <TouchableOpacity style={styles.infoItem} onPress={questionsPressed}>
             <Card
               style={styles.menu}
               {...(isPressed[0] ? { backgroundColor: Colors.blue60 } : {})}
             >
-              <Text black>Pending questions</Text>
+              <Text center black>Pending</Text>
             </Card>
           </TouchableOpacity>
-          <TouchableOpacity onPress={usersPressed}>
+          <TouchableOpacity style={styles.infoItem} onPress={usersPressed}>
             <Card
               style={styles.menu}
               {...(isPressed[1] ? { backgroundColor: Colors.blue60 } : {})}
             >
-              <Text black>Users</Text>
+              <Text center black>Users</Text>
             </Card>
           </TouchableOpacity>
           {userData.role === 0 && (
-            <TouchableOpacity onPress={configPressed}>
+            <TouchableOpacity style={styles.infoItem} onPress={configPressed}>
               <Card
                 style={styles.menu}
                 {...(isPressed[2] ? { backgroundColor: Colors.blue60 } : {})}
               >
-                <Text black>Config</Text>
+                <Text center black>Config</Text>
               </Card>
             </TouchableOpacity>
           )}
@@ -556,4 +556,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: Colors.grey60,
   },
+  infoItem:{
+    flex: 1,
+    paddingHorizontal: 5,
+  }
 });
