@@ -30,7 +30,15 @@ const PostAnswerScreen = ({ navigation, route }) => {
       </View>
       <View style={styles.body}>
         <Text style={styles.textTitle}>Content</Text>
-
+        <RichToolbar
+          editor={richText}
+          actions={[
+            actions.setBold,
+            actions.setItalic,
+            actions.setUnderline,
+            actions.removeFormat,
+          ]}
+        />
         <Card style={styles.typingContent}>
           <RichEditor
             useContainer={false}
@@ -42,15 +50,6 @@ const PostAnswerScreen = ({ navigation, route }) => {
             }}
           />
         </Card>
-        <RichToolbar
-          editor={richText}
-          actions={[
-            actions.setBold,
-            actions.setItalic,
-            actions.setUnderline,
-            actions.removeFormat,
-          ]}
-        />
       </View>
       <View style={styles.button}>
         <TouchableOpacity
