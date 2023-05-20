@@ -1,6 +1,6 @@
 import { API_URL } from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Alert,
   Image,
