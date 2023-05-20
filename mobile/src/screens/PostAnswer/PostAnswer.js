@@ -38,7 +38,6 @@ const PostAnswerScreen = ({ navigation, route }) => {
             initialContentHTML={initContent}
             onChange={(descriptionText) => {
               setContent(descriptionText);
-              //console.log("descriptionText:", descriptionText);
             }}
           />
         </Card>
@@ -98,8 +97,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     height: 50,
     backgroundColor: Colors.white,
-    //justifyContent: "center",
-    //marginHorizontal: 20,
+
     padding: 10,
     alignItems: "center",
     flexDirection: "row",
@@ -131,7 +129,6 @@ const styles = StyleSheet.create({
     height: "70%",
   },
   button: {
-    // justifyContent: "flex-end",
     flexDirection: "row",
     justifyContent: "space-evenly",
   },

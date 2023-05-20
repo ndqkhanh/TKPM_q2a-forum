@@ -33,14 +33,14 @@ const ProfileScreen = ({ navigation, route }) => {
   if (param != null) {
     userId = param.uid;
   }
-  //console.log("--uid: ", userId)
+
   const { userData, setUserData, fetchUserInformation } =
     useContext(UserContext);
-  //console.log("--user: ", userData)
+
   const [pendingData, setPendingData] = useState(userData);
-  // console.log("pendingData", pendingData);
+
   const [anotherUserData, setAnotherUserData] = useState({});
-  // const [userData, setUserData] = useState({});
+
   const [myQuestionsData, setMyQuestionsData] = useState([]);
   const [maxLength, setMaxLength] = useState(0);
   const [page, setPage] = useState(0);
@@ -50,17 +50,14 @@ const ProfileScreen = ({ navigation, route }) => {
     if (userId != null) {
       data = await getUserProfile(userId);
     }
-    // else {
-    //   data = await getMyProfile(token);
-    // }
-    //console.log("--AnotherUser: ", data)
     if (data) setAnotherUserData(data);
   };
+
   const limit = 5;
   const fetchMyQuestions = async (page, limit) => {
     let token = await AsyncStorage.getItem("UserToken");
     const data = await getMyQuestions(token, page, limit);
-    //console.log("--questions: ", data.questions)
+
     var maxLength = 5;
     try {
       maxLength = parseInt(data.count);
@@ -114,7 +111,6 @@ const ProfileScreen = ({ navigation, route }) => {
       setMaxLength(0);
     };
   }, []);
-  //console.log("--AnotherUser: ", anotherUserData)
   const [tab, setTab] = useState("Personal info");
   const personalInfoTab = () => {
     setTab("Personal info");
@@ -418,8 +414,6 @@ const styles = StyleSheet.create({
   headerContainer: {
     height: 50,
     backgroundColor: Colors.white,
-    // justifyContent: "center",
-    //marginHorizontal: 20,
     padding: 10,
     alignItems: "center",
     flexDirection: "row",

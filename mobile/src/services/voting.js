@@ -2,7 +2,6 @@ import { API_URL } from "@env";
 
 const voteAndUnvoteAnswer = async (token, answerId, status) => {
   try {
-    // let token = await AsyncStorage.getItem("UserToken");
     let data = await fetch(`${API_URL}/voting/${answerId}`, {
       method: "POST",
       body: JSON.stringify({

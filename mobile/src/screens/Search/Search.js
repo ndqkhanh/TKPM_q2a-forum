@@ -173,7 +173,6 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     backgroundColor: Colors.white,
-    // justifyContent: "center",
   },
   header: {
     fontSize: 20,
