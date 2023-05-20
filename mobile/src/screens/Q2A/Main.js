@@ -82,6 +82,7 @@ const ScreensQ2AMain = ({ navigation, route }) => {
               setAnswersAndVotes((item) =>
                 item.filter((answer) => answer.answer.id != answerId),
               );
+              fetchGetAllAnswersAndVotings(questionId, page, limit);
               Alert.alert("Delete answer successfully.");
             } else {
               Alert.alert("Delete answer failure.");
@@ -139,17 +140,6 @@ const ScreensQ2AMain = ({ navigation, route }) => {
     const response = await voteAndUnvoteAnswer(token, answerId, status);
     if (response.success == true) {
       fetchGetAllAnswersAndVotings(questionId, page, 5);
-      // setAnswersAndVotes((answersAndVotes) => {
-      //   return answersAndVotes.map((item) => {
-      //     if (item.answer.id === answerId) {
-      //       let t = status == 0 ? 1 : status == 1 ? -1 : 0
-      //       return {
-      //         ...item,
-      //         minus_upvote_downvote: item.minus_upvote_downvote + status ,
-      //       };
-      //     }
-      //   });
-      // });
     } else {
       Alert.alert(
         "There is an error occurs. Please reload to proceed this action.",
@@ -328,15 +318,6 @@ const ScreensQ2AMain = ({ navigation, route }) => {
   );
 };
 const styles = StyleSheet.create({
-  // headerContainer: {
-  //   height: 50,
-  //   backgroundColor: Colors.white,
-  //   justifyContent: "center",
-  //   marginHorizontal: 20,
-  //   alignItems: "center",
-  //   flexDirection: "row",
-  //   // justifyContent: "space-between",
-  // },
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",

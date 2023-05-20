@@ -1,33 +1,31 @@
-import React, { useState, useContext, useEffect } from "react";
-import { View, Text, Avatar, Card, Colors } from "react-native-ui-lib";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { formatDistance } from "date-fns";
+import React, { useContext, useEffect, useState } from "react";
 import {
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
   Alert,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
   TextInput,
-  Touchable,
   TouchableHighlight,
+  TouchableOpacity,
 } from "react-native";
+import { Card, Colors, Text, View } from "react-native-ui-lib";
 import Icon from "react-native-vector-icons/Ionicons";
-import { UserContext } from "~provider/UserProvider";
 import PendingQuestion from "~components/Common/PendingQuestionList";
 import User from "~components/Common/UserList";
-import { formatDistance } from "date-fns";
 import {
   approveDeclineQuestionController,
+  banUserController,
   getListConfigurationsController,
   getMetricsController,
   getPendingQuestionsController,
   getUsersController,
   updateConfigurationController,
-  banUserController,
 } from "~controller/admin";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { is_empty } from "~utils/string";
 import { ConfigContext } from "~provider/ConfigProvider";
-import { wrap } from "cheerio/lib/api/manipulation";
+import { UserContext } from "~provider/UserProvider";
+import { is_empty } from "~utils/string";
 
 const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
   const paddingToBottom = 280;
@@ -305,7 +303,9 @@ const ManageForumScreen = ({ navigation }) => {
               style={styles.menu}
               {...(isPressed[0] ? { backgroundColor: Colors.blue60 } : {})}
             >
-              <Text center black>Pending</Text>
+              <Text center black>
+                Pending
+              </Text>
             </Card>
           </TouchableOpacity>
           <TouchableOpacity style={styles.infoItem} onPress={usersPressed}>
@@ -313,7 +313,9 @@ const ManageForumScreen = ({ navigation }) => {
               style={styles.menu}
               {...(isPressed[1] ? { backgroundColor: Colors.blue60 } : {})}
             >
-              <Text center black>Users</Text>
+              <Text center black>
+                Users
+              </Text>
             </Card>
           </TouchableOpacity>
           {userData.role === 0 && (
@@ -322,7 +324,9 @@ const ManageForumScreen = ({ navigation }) => {
                 style={styles.menu}
                 {...(isPressed[2] ? { backgroundColor: Colors.blue60 } : {})}
               >
-                <Text center black>Config</Text>
+                <Text center black>
+                  Config
+                </Text>
               </Card>
             </TouchableOpacity>
           )}
@@ -482,8 +486,6 @@ export default ManageForumScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //   marginLeft: 10,
-    //   marginRight: 10
   },
   body: {
     marginLeft: 10,
@@ -492,8 +494,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     height: 50,
     backgroundColor: Colors.white,
-    // justifyContent: "center",
-    //marginHorizontal: 20,
+
     padding: 10,
     alignItems: "center",
     paddingHorizontal: 20,
@@ -556,8 +557,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: Colors.grey60,
   },
-  infoItem:{
+  infoItem: {
     flex: 1,
     paddingHorizontal: 5,
-  }
+  },
 });

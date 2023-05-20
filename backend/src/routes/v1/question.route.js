@@ -3,7 +3,10 @@ const auth = require('../../middlewares/auth');
 const validate = require('../../middlewares/validate');
 const questionValidation = require('../../validations/question.validation');
 const questionControlller = require('../../controllers/question.controller');
+
 const route = express.Router();
+
+// Question status: 0 - Pending, 1-Declined, 2-Approved
 
 route
   .route('/')

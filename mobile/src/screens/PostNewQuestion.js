@@ -40,10 +40,7 @@ const PostQuestionScreen = ({ navigation, route }) => {
       }
     }
   };
-  // console.log("route.params", JSON.stringify(route.params));
-  // console.log("initContent", initContent);
-  // console.log("initTitle", initTitle);
-  // return <></>;
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -85,7 +82,6 @@ const PostQuestionScreen = ({ navigation, route }) => {
             initialContentHTML={initContent}
             onChange={(descriptionText) => {
               setContent(descriptionText);
-              // console.log("descriptionText:", descriptionText);
             }}
           />
         </Card>
@@ -139,8 +135,6 @@ const styles = StyleSheet.create({
   headerContainer: {
     height: 50,
     backgroundColor: Colors.white,
-    //justifyContent: "center",
-    //marginHorizontal: 20,
     padding: 10,
     paddingHorizontal: 20,
     alignItems: "center",
