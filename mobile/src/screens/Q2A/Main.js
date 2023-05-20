@@ -82,6 +82,7 @@ const ScreensQ2AMain = ({ navigation, route }) => {
               setAnswersAndVotes((item) =>
                 item.filter((answer) => answer.answer.id != answerId),
               );
+              fetchGetAllAnswersAndVotings(questionId, page, limit);
               Alert.alert("Delete answer successfully.");
             } else {
               Alert.alert("Delete answer failure.");
