@@ -1,4 +1,3 @@
-// import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "@env";
 
 const getMetrics = async (token) => {
@@ -78,7 +77,6 @@ const getUsers = async (token, page, limit) => {
 
 const getListConfigurations = async (token) => {
   try {
-    // let token = await AsyncStorage.getItem("UserToken");
     let data = await fetch(`${API_URL}/admin/list-configuration`, {
       method: "GET",
       headers: {

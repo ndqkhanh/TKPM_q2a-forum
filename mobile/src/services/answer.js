@@ -29,7 +29,6 @@ const postAnswer = async (passContent, passQid) => {
     else return null;
   } catch (error) {
     message = { header: "Error", content: error };
-    //console.log(error);
   }
   return message;
 };
@@ -125,7 +124,6 @@ const updateAnswer = async (answerId, passContent) => {
     else return null;
   } catch (error) {
     message = { header: "Error", content: error };
-    //console.log(error);
   }
   return message;
 };

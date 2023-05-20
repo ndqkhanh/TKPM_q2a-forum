@@ -193,7 +193,7 @@ const ScreensHomeMain = ({ navigation, route }) => {
                     color: Colors.cyan20,
                   }}
                 >
-                  {(userData.role == 1)? "Moderator": "Admin"}
+                  {userData.role == 1 ? "Moderator" : "Admin"}
                 </Text>
               </>
             </TouchableHighlight>
@@ -241,7 +241,6 @@ const styles = StyleSheet.create({
   headerContainer: {
     height: 50,
     backgroundColor: Colors.white,
-    // justifyContent: "center",
     marginHorizontal: 20,
     alignItems: "center",
     flexDirection: "row",

@@ -1,20 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import { API_URL } from "@env";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useContext, useState } from "react";
 import {
-  Dimensions,
+  Alert,
   Image,
   SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
-  View,
   TouchableOpacity,
-  Alert,
+  View,
 } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { Colors } from "react-native-ui-lib";
 import Icon from "react-native-vector-icons/Ionicons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { API_URL } from "@env";
-import { ScrollView } from "react-native-gesture-handler";
 import { UserContext } from "~provider/UserProvider";
 
 const ScreensSignInMain = ({ navigation }) => {
@@ -27,8 +26,6 @@ const ScreensSignInMain = ({ navigation }) => {
 
   const fetchSignin = async (username, password) => {
     try {
-      // alert(`${API_URL}/auth/signin`);
-      console.log(`${API_URL}/auth/signin`);
       let responseLogin = await fetch(`${API_URL}/auth/signin`, {
         method: "POST",
         headers: {
