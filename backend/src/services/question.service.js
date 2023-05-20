@@ -91,8 +91,8 @@ const searchQuestion = async (req) => {
   }
 
   const listQuestions = await prisma.questions.findMany({
-    orderBy:{
-      updated_at: 'desc'
+    orderBy: {
+      updated_at: 'desc',
     },
     skip: req.params.offset * req.params.limit,
     take: req.params.limit,
@@ -217,7 +217,7 @@ const getQuestionByID = async (req) => {
 };
 const GetAnswersByQuestionIDPagination = async (req) => {
   const answers = await prisma.answers.findMany({
-    orderBy:{
+    orderBy: {
       updated_at: 'desc',
     },
     skip: req.params.page * req.params.limit,
