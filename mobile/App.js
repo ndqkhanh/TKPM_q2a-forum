@@ -24,6 +24,7 @@ import ScreensQ2AMain from "~screens/Q2A/Main";
 import SearchScreen from "~screens/Search/Search";
 import ScreensSignInMain from "~screens/SignIn/Main";
 import ScreensSignUpMain from "~screens/SignUp/Main";
+import { API_URL } from "@env";
 
 LogBox.ignoreLogs([
   `The action 'NAVIGATE' with payload {"name":"Home"} was not handled by any navigator.
@@ -44,6 +45,8 @@ if (TextInput.defaultProps == null) {
   TextInput.defaultProps = {};
   TextInput.defaultProps.allowFontScaling = false;
 }
+
+console.log("API_URL", API_URL);
 const BottomTab = createBottomTabNavigator();
 const BottomTabNavigator = ({ navigation }) => {
   return (
