@@ -32,8 +32,6 @@ const Post = ({
   onDownVote = null,
   goProfile = null,
 }) => {
-  //const navigation = useNavigation();
-
   const { width } = useWindowDimensions();
 
   const initContent = content.split("&lt;").join("<");
