@@ -12,6 +12,8 @@ const createQuestion = async (req) => {
       uid: userId,
       content: req.body.content,
       title: req.body.title,
+      created_at: new Date(),
+      updated_at: new Date(),
     },
   });
   return question;
