@@ -267,7 +267,6 @@ const ProfileScreen = ({ navigation, route }) => {
                   isCloseToBottom(nativeEvent) &&
                   myQuestionsData.length < maxLength
                 ) {
-                  console.log("scrolled to bottom of the list");
                   setRefetch(true);
                   fetchMyQuestions(page, limit);
                 }
@@ -291,7 +290,20 @@ const ProfileScreen = ({ navigation, route }) => {
                   content={record.content}
                   title={record.title}
                   questionStatus={record.status}
-                  userData={userData}
+                  userData={{
+                    name: userData.name,
+                    avatarUrl: userData.profilepictureurl,
+                  }}
+                  correctAnswer={record.correctAnswerExists}
+                  onPressQ2A={() => {
+                    navigation.navigate("Q2A", { questionId: record.id });
+                  }}
+                  onPressAnswer={() => {
+                    navigation.navigate("Post answer", { qid: record.id });
+                  }}
+                  goProfile={() => {
+                    navigation.navigate("Profile", { uid: record.uid });
+                  }}
                 />
               ))}
             </ScrollView>
@@ -406,6 +418,12 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  body2: {
+    flex: 1,
+    padding: 10,
+    paddingHorizontal: 20,
+    backgroundColor: Colors.cyan70,
   },
   body: {
     marginLeft: 10,

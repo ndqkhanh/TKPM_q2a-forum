@@ -10,6 +10,12 @@ Là một nền tảng để người dùng có thể hỏi và chia sẻ kinh n
 
 #### Người quản lý: Có các quyền của người điều hành và quyền thay đổi của diễn đàn, thay đổi số câu hỏi xuất hiện trên bảng feed.
 
+### Cài đặt cần thiết
+
+1. Cần cài đặt cơ sở dữ liệu PostgreSQL và hệ quản trị cơ sở dữ liệu DBeaver.
+2. Cấu hình người dùng cho cơ sở dữ liệu PostgreSQL với tên người dùng là `postgres` và mật khẩu là `localdb`.
+3. Cài đặt môi trường để chạy dự án React Native với React Native CLI.
+
 ### Cách tạo schema và dữ liệu giả
 
 1. Mở terminal đền thư mục backend.
@@ -24,3 +30,7 @@ Là một nền tảng để người dùng có thể hỏi và chia sẻ kinh n
 4. Chạy yarn ở cả 2 terminal.
 5. Chạy yarn dev ở backend.
 6. Chạy yarn android ở mobile.
+
+### Lưu ý
+
+1. Mật khẩu mặc định cho bảng users là `V@ilachinh12312`

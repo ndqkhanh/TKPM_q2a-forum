@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "@env";
 
 const BlankScreen = ({ navigation }) => {
+  console.log("BlankScreen");
   const onSignIn = () => {
     navigation.navigate("login_screen");
   };

@@ -71,7 +71,7 @@ const ScreensQ2AMain = ({ navigation, route }) => {
       [
         {
           text: "Cancel",
-          onPress: () => Alert.alert("Cancel Pressed"),
+          onPress: () => null,
           style: "cancel",
         },
         {
@@ -108,7 +108,7 @@ const ScreensQ2AMain = ({ navigation, route }) => {
       [
         {
           text: "Cancel",
-          onPress: () => Alert.alert("Cancel Pressed"),
+          onPress: () => null,
           style: "cancel",
         },
         {

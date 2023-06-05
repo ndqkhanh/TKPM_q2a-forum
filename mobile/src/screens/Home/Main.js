@@ -228,7 +228,9 @@ const ScreensHomeMain = ({ navigation, route }) => {
               navigation.navigate("Post answer", { qid: record.id });
             }}
             goProfile={() => {
-              navigation.navigate("Profile", { uid: record.uid });
+              if (userData.id != record.uid)
+                navigation.navigate("Profile", { uid: record.uid });
+              else navigation.navigate("Profile");
             }}
           />
         ))}
